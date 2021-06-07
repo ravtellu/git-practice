@@ -1,0 +1,319 @@
+Difference between Procedural oriented and Object oriented: 
+----------------------------------------------------------
+	The languages like C,Pascal,Fortran etc. are called procedural oriented programming
+languages  since in these languages, a programmer uses procedures or functions to
+perform a task. While developing software the main task is divided into several sub tasks
+and each subtask is represented as procedure or function.The main task is thus composed of
+several procedures and functions. This approach is called as procedural oriented approach.
+
+
+main() function    ---------->  function1, function2, function3
+    main task 					 subtask1   subtask2    subtask3
+
+	The languages like c++ ,java and python use classes and objects in their programs and 
+are called Object oriented programing languages. A class is a module which itself contains
+data and methods(functions) to achieve task. Here the main task is divided into subtasks
+and these are represented as classes. Each class can perform several inter-related tasks for 
+which several methods are written in a class. This approach is called Object oriented approach.
+
+class()with main() --------> Class1 with data&Methods, class2 with data&Methods,class3 with data&Methods
+     main task                             subtask1					subtask2				subtask3
+
+
+
+Introduction to OOPS:
+==================== 
+	In OOPS, everything is an object. In real life, some objects will have similar behavior. 
+For example, all birds have similar behavior like having two wings,two legs etc.Also, all
+birds have the ability to fly in the sky. Such objects with similar behavior belong to the
+same class. So, a class represents common behavior of a group objects. Since a class represents
+behavior, it does not exist physically. But objects exist physically. For example, bird is class;
+where as , sparrow,pigeon,crow and peacock are objects of the bird class. Similarly, human being a class
+and Arjun,krishna,sita are objects of the human being class. 
+
+Speciality of Python Language: 
+-----------------------------
+
+	In OOPS, all programs involve creation of classes and objects. This makes programs lengthy. For example,
+We have to write all statements of program inside a class and then create objects to the class. Then use the features of
+the class through objects.  This type of programming requires much code to perform simple task like adding two numbers.
+Also, the program execution takes more time. So, for simple tasks, it is still better to go for procedural oriented 
+approach over which offers less code and more speed. For example, a C program executes faster than its equivalent
+program written in Python or Java!
+
+	Even though, Python is an object oriented programing language like java, it does not force programmers to write
+programs in complete object oriented way. Unlike java, Python has a blend of both the object oriented and procedure
+oriented features. Hence, Python programmers can write programs using procedure oriented approach(like C) or object
+oriented approach(like java) depending on their requirements. This is definitely an advantage of python .
+
+Features of OOPS : 
+-------------
+
+There are important features related to object oriented programing system. They are
+
+1. Classes and Objects
+2. Encapsulation
+3. Abstraction
+4. Inheritance
+5. Polymorphism
+
+Classes and Objects : 
+====================
+
+As we know class is a model or plan to create objects. This means, we write a class with the 
+attributes and actions of methods. Attributes are represented by variables and actions are performed by methods.
+So, a class contains variables and methods. The same variables and methods are also available in the objects
+because they are created from class. These variables are called 'instance variables'. because they are
+created inside the instance (i.e object)
+
+A function inside a class is called as method. Generally a method is called using one of the following two ways.
+
+1. classname.methodname()
+2. instancename.methodname()
+
+The general format of class is given as below: 
+
+class classname :
+	''' docstring describing the class '''
+	attributes
+	def __init__(self):
+	def method1():
+	def method2():
+	
+__init__() is special method to initialize variables.
+
+Creating a class: 
+================
+
+In below example created student class with attributed name and age etc. These attributes 
+should written inside the student class as variables. Similarly a student can perform actions 
+like talking,writing,reading. These actions should specify in methods.
+
+
+
+class Student:
+	def __init__(self):
+		self.name = 'Ramu'
+		self.age = 25
+		
+	def talk(self):
+		print("name is ",self.name)
+		print("age is ",self.age)
+
+
+
+Here 
+Student --> class name . Generally first letter of class name should be Capital.
+
+In the class we have write attributes and methods. Since in python we can not declare variables,
+we have written the variables inside a special method, i.e __init__(). This method is useful
+to initialize the variables. Hence,the name 'init'. This method as two underscores before and after.
+This indicates that this method is internally defined and we can not call this method explicitly.
+
+Observe,the parameter written after the method name in the parentheses. 'self' is variable
+ that refers
+current class instance.  When we create a instance for the student class, a separated  memory block is allocated
+on the heap and memory location is by default stored in 'self'. The instance contains the variable 'name','age'
+which are called instance variables. To refer to instance variables , we can use dot operator notation along with self 
+as 'self.name ', self.age' 
+
+The method talk() takes 'self' variable as parameter. This method displays the values of the variables by 
+referring then using 'self'.The methods that act on instances(or objects) of a class are called instance methods.
+Instance method use 'self' as the first parameter that refers to the location of the instance in the memory. 
+Since instance methods know the location of instance, they can act on the instance variables. In the previous code
+, the two methods __init__(self) and talk(self) are called instance methods. 
+
+To use a class we should create an instance(or object) to the  class. Instance creation represents allocating memory
+necessary to store the actual data of the variables.
+
+instance name = classname()
+
+So to create instance for student class we can write as : 
+s1 = Student()
+
+Once we create instance the following steps will take place internally.
+
+1. A block of memory will be allocated on heap. How much memory is to be allotted
+	to be allocated is decided from the attributes and methods available in the student class. 
+	
+2. After allocating the memory block, the special method by the name '__init__(self)' is called
+	internally. This method stores initial data into the variables. Since this method is useful to 
+	construct the instance, it is called 'constructor'
+3. Finally the allocated memory location address of the instance is returned into 's1' variable.
+	To see this memory location in decimal number format, we can use id() as id(s1)
+
+
+Accessing variables and methods using object.
+s1.name
+s1.talk()
+
+
+program1:
+---------
+1. Accessing class variables 
+
+
+class Student:
+	rno = 101
+	name = 'Phani'
+
+s1 = Student()
+
+print("student rno is ",s1.rno);
+print("student name is",s1.name);
+
+
+
+output:
+-------
+student rno is  101
+student name is Phani
+
+2. Accessing Method in class
+
+class Student:
+	rno = 101
+	name = 'Phani'
+	def details(self):
+		print("Students Details")
+
+s1 = Student()
+s1.details()
+
+print("student rno is ",s1.rno);
+print("student name is",s1.name);
+
+Output:
+------
+Students Details
+student rno is  101
+student name is Phani
+
+3. Usage of __init__()
+
+class Student:
+	def __init__(self):
+		print("Engineering college Information")
+			
+		
+	def details(self):
+		print(" Student details ")
+	
+	
+s1 = Student()
+s1.details()
+
+
+Output:
+-------
+Engineering college Information
+ Student details
+
+4. Declare variables in __init__()
+
+class Student:
+	def __init__(self):
+		print("Engineering college Information")
+		self.rno = 101
+		self.name = 'Phani'
+		
+		
+	def details(self):
+		print(" student details")
+	
+	
+s1 = Student()
+s1.details()
+print("student no is %d and name is %s"%(s1.rno,s1.name))
+
+Output:
+------
+
+Engineering college Information
+ student details
+student no is 101 and name is Phani
+
+
+
+
+5. Program to access initialized variables in method
+
+class Student:
+	def __init__(self,roll_num,st_name):
+		print("Engineering college Information")
+		self.roll_number = roll_num
+		self.std_name = st_name
+		
+		
+		
+	def details(self):
+		
+		print("student no is %d and name is %s"%(self.roll_number,self.std_name))
+		
+
+	
+s1 = Student(102,'RAVI')
+s1.details()
+
+
+s2 = Student(103,'RAJA')
+s2.details()
+
+Output:
+--------
+Engineering college Information
+student no is 102 and name is RAVI
+Engineering college Information
+student no is 103 and name is RAJA
+
+
+class student:
+	name = 'phani'
+	Institute = 'QT'
+	def __init__(self):
+		print("student name is %s and institute is %s"%(self.name,self.Institute))
+	def details(s):
+		s.name='Raji'
+		s.Institute= 'ISB'
+		print("student name is %s and institute is %s"%(s.name,s.Institute))
+s1 = student()
+s1.details()
+
+output:
+--------
+student name is phani and institute is QT
+student name is Raji and institute is ISB
+
+
+
+
+Namespaces:
+===========
+A namespace represents a memory block where names are mapped (or linked) to objects.
+In python numbers,strings,lists all are objects. 
+
+A class maintains its own namespace called 'class namespace'.the names are mapped to 
+class varaibles.Similarly every instance will have its own namespace called instance 
+namespace.
+
+class student:
+	name='RAVI'
+	
+s1 = student()
+s2 = student()
+s3 = student()
+student.name = 'Krishna'
+s1.name = 'Ramu'
+s2.name = 'Lakshmi'
+
+
+print(s1.name)
+print(s2.name)
+print(s3.name)
+
+
+output:
+=======
+Ramu
+Lakshmi
+Krishna

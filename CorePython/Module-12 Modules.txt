@@ -1,0 +1,82 @@
+Working with python modules : 
+==============================
+
+Module is anyone ending with .py extension.
+		(or)
+A module is a file consisting of python code also can contains
+functions classes and variables.
+		(or)
+Module refere to a file containing python statement and definitions
+a module allows you to logically organize your python code. 
+
+
+How to create module : 
+===================
+
+calc.py
+--------
+
+def add(a,b):
+	c = a+b
+	return c
+
+def sub(a,b):
+	c = a-b
+	return c
+
+def mul(a,b):
+	c = a*b
+	return c
+
+def div(a,b):
+	c = a/b
+	return c
+	
+module_ex.py	
+	
+import calc
+
+ret=calc.add(10,20)
+
+print("the sum is",ret)
+
+
+
+>> from..import is used to import only particular function instead of whole module definitions.
+
+
+from calc import add
+
+res = add(10,20)
+print("result is ",res)
+
+Usage of help function.
+
+>>help()
+>>modules()
+>>quit
+
+How to identify defintions;
+
+>> import sys
+>>dir(sys)
+
+
+
+Usage of pip keyword
+====================
+
+pip is a package management system used to install and manage software packages written in Python.
+ 
+pip is a recursive acronym that can stand for either "Pip Installs Packages" or "Pip Installs Python".
+ Alternatively, pip stands for "preferred installer program".
+
+C://users/lenovo/Desktop> pip install boto
+
+To install package : 
+--------------------
+pip install some-package-name
+
+To uninstall package  :
+
+pip uninstall some-package-name

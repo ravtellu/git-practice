@@ -1,0 +1,72 @@
+Passing Members of one class to other class: 
+------------------------------------------
+1. Python program to create Emp class and make all the members
+	of the Emp class is available to another class.i.e myclass
+
+class Emp:
+	def __init__(self,id,name,sal):
+		self.id = id
+		self.name =  name
+		self.sal = sal
+	#this is an instance method
+	def display(self):
+		print('Id=',self.id)
+		print('name=',self.name)
+		print('sal=',self.sal)
+		
+class Myclass:
+	#Method to receive Emp class instance
+	#and display employee class
+	
+	def mymethod(self,e):
+		# increment salary of e by 1000
+		e.sal += 1000
+		e.display()
+
+# Create Emp,class Instance e
+
+e = Emp(101,'PHANI',20000)
+m = Myclass()
+m.mymethod(e)
+	
+	
+	
+	
+Inner Classes:
+--------------
+
+Writing a class with in another class is called inner class or nested class. 
+
+ex: 
+	A python program to create Dob class within person class. 
+	
+#inner class example
+
+class person:
+	def __init__(self):
+		self.name = 'KRISHNA'
+		self.db = self.Dob()
+	def display(self):
+		print('name=',self.name)
+	
+	#this is inner class
+	class Dob:
+		def __init__(self):
+			self.dd = 17
+			self.mm = 5
+			self.yy = 1985
+		def display(self):
+		
+			print('Dob={}/{}/{}'.format(self.dd,self.mm,self.yy))
+			
+#creating person class object
+
+p = person()
+p.display()
+
+
+#creating inner class object in other way.
+
+x=person().Dob()
+x.display()
+print(x.yy)

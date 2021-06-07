@@ -1,0 +1,205 @@
+What are packages?
+
+	We don't usually store all of our files in our computer 
+in the same location.We use a well-organized hierarchy of 
+directories for easier access.
+
+
+Similar files are kept in the same directory, for example, we may keep all the songs 
+in the "music" directory. Analogous to this, Python has packages for directories and 
+modules for files.
+
+As our application program grows larger in size with a lot of modules, we place similar 
+modules in one package and different modules in different packages. This makes a project
+(program) easy to manage and conceptually clear.Similar, as a directory can contain 
+sub-directories and files, a Python package can have sub-packages and modules.
+
+A directory must contain a file named __init__.py in order for Python to consider 
+it as a package. This file can be left empty but we generally place the initialization 
+code for that package in this file.
+
+
+
+
+mypackage --folder
+   |
+   |
+   |--> __init__.py
+   |--> calculations.py
+   |
+   |subpackage folder
+		|
+		|--> __init__.py
+		|-->aggregration.py
+		|
+
+pkg_example.py
+
+Here mypackage and pkg_example.py should be under same folder.
+
+if you want to specify mypackage in golbal then copy it to site-package folder.
+
+>>import sys
+>>sys.path
+
+calculation.py:
+==============
+def add(a,b):
+	return a+b
+def sub(a,b):
+	return a-b
+def mul(a,b):
+	return a*b
+def div(a,b):
+	return a/b
+	
+aggregration.py:
+================
+def sum(lst):
+	s = 0
+	for i in lst:
+		s = s+i
+	return s
+
+
+pkg_example.py:
+==============
+import mypackage.calculation as k
+import mypackage.subpackage.aggregration as l
+
+
+val = k.add(10,20)
+a = [10,20,30]
+print("The value is ",val)
+
+b = l.sum(a)
+print("the sum of elements of list is",b)
+
+Date and time module:
+====================
+
+Python provides 3 modules for date and time related.
+
+1. datetime
+2. time
+3. calender
+
+
+i) Python program to know current date and time using ctime() function.
+
+>>> import time
+>>> t = time.ctime()
+>>> t
+'Sun Mar  4 23:00:36 2018'
+
+ii) Python program to know local date and time.
+
+from datetime import * 
+now = datetime.now()
+print(now)
+
+print(" Date now : {}/{}/{}".format(now.day,now.month,now.year))
+print(" Time now : {}:{}:{}".format(now.hour,now.minute,now.second))
+
+
+iii) python program to know today's date and time.
+
+	  
+>>> print(datetime.today())
+	  
+2018-03-04 23:06:38.900203
+>>> print(date.today())
+	  
+2018-03-04
+>>> 
+
+The contents of the 'datetime' and 'time' classes objects can be formatted using
+strftime() method. 'strftime' represent 'string format of time'. This method
+converts the objects into a specified format and returns the formatted string.
+
+>>> import datetime
+>>> td = datetime.date.today()
+>>> print(td)
+2018-03-04
+>>> td.strftime("%d,%B,%Y")
+'04,March,2018'
+>>> td.strftime("%d,%b,%y")
+'04,Mar,18'
+
+Here d,b,y are called it as formatted codes
+
+
+
+>>> import calendar
+>>> clndr = calendar.month(2018,3)
+>>> print(clndr)
+     March 2018
+Mo Tu We Th Fr Sa Su
+          1  2  3  4
+ 5  6  7  8  9 10 11
+12 13 14 15 16 17 18
+19 20 21 22 23 24 25
+26 27 28 29 30 31
+
+
+The date, datetime, and time objects all support a strftime(format) method,
+ to create a string representing the time under the control of an explicit format string.
+
+Here is a list of the format codes with their directive and meaning
+
+	%a  Locale’s abbreviated weekday name.
+    %A  Locale’s full weekday name.      
+    %b  Locale’s abbreviated month name.     
+    %B  Locale’s full month name.
+    %c  Locale’s appropriate date and time representation.   
+    %d  Day of the month as a decimal number [01,31].    
+    %f  Microsecond as a decimal number [0,999999], zero-padded on the left
+    %H  Hour (24-hour clock) as a decimal number [00,23].    
+    %I  Hour (12-hour clock) as a decimal number [01,12].    
+    %j  Day of the year as a decimal number [001,366].   
+    %m  Month as a decimal number [01,12].   
+    %M  Minute as a decimal number [00,59].      
+    %p  Locale’s equivalent of either AM or PM.
+    %S  Second as a decimal number [00,61].
+    %U  Week number of the year (Sunday as the first day of the week)
+    %w  Weekday as a decimal number [0(Sunday),6].   
+    %W  Week number of the year (Monday as the first day of the week)
+    %x  Locale’s appropriate date representation.    
+    %X  Locale’s appropriate time representation.    
+    %y  Year without century as a decimal number [00,99].    
+    %Y  Year with century as a decimal number.   
+    %z  UTC offset in the form +HHMM or -HHMM.
+    %Z  Time zone name (empty string if the object is naive).    
+    %%  A literal '%' character.
+
+	
+	>>>>
+  import time
+    import datetime
+
+    
+    print("Current date and time: " , datetime.datetime.now())
+    print("Or like this: " ,datetime.datetime.now().strftime("%y-%m-%d-%H-%M"))
+
+
+    print("Current year: ", datetime.date.today().strftime("%Y"))
+    print("Month of year: ", datetime.date.today().strftime("%B"))
+    print("Week number of the year: ", datetime.date.today().strftime("%W"))
+    print("Weekday of the week: ", datetime.date.today().strftime("%w"))
+    print("Day of year: ", datetime.date.today().strftime("%j"))
+    print("Day of the month : ", datetime.date.today().strftime("%d"))
+    print("Day of week: ", datetime.date.today().strftime("%A"))
+
+	
+	That will print out something like this:
+
+    
+    Current date and time:              2012-10-03 15:35:46.461491
+    Or like this:                       12-10-03-15-35
+    Current year:                       2012
+    Month of year:                      October
+    Week number of the year:            40
+    Weekday of the week:                3
+    Day of year:                        277
+    Day of the month :                  03
+    Day of week:                        Wednesday

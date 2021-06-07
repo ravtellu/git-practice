@@ -1,0 +1,211 @@
+<?xml version="1.0"?>
+
+<people>
+	<person>
+		<firstName>Alan</firstName>
+		<lastName>Turing</lastName>
+		<profession>Computer Scientist</profession>
+
+	</person>
+
+	<person>
+
+		<firstName>Stephen</firstName>
+		<lastName>Hawking</lastName>
+		<profession>Physicist</profession>
+	</person>
+
+</people>
+
+
+import xml.etree.ElementTree
+people = xml.etree.ElementTree.parse("C:\\Users\\lenovo\\Desktop\\people.xml")
+persons = people.findall("person")
+
+
+for person in persons:
+	print(person.find("firstName").text)
+	print(person.find("lastName").text)
+	print(person.find("profession").text)
+
+	
+
+=============================================================
+
+
+<college clg_name = "CBIT">
+	<student id = "101">
+                <name> Ravi </name>
+                <age> 20 </age>
+                <branch> CSE </branch>
+
+	</student>
+	<student id = "102">
+                <name> Ramu </name>
+                <age> 21 </age>
+                <branch> IT </branch>
+	</student>
+	<student id = "103">
+                <name> phani </name>
+                <age> 19 </age>
+                <branch> IT </branch>
+	</student>
+
+</college>
+
+===============================================
+
+from xml.dom.minidom import parse
+import xml.dom.minidom
+
+ # Open XML document using minidom parser
+
+DOMTree = xml.dom.minidom.parse("C:\\Users\\lenovo\\Desktop\\people.xml")
+collection = DOMTree.documentElement
+if collection.hasAttribute("clg_name"):
+	print("Root element is" , collection.getAttribute("clg_name"))
+
+ 
+
+# Get all the is in the collection
+students = collection.getElementsByTagName("student")
+
+# Print detail of each i.
+for i in students:
+
+   print( "*****Student*****")
+
+   if i.hasAttribute("id"):
+      print( "id:" , i.getAttribute("id"))
+
+   name = i.getElementsByTagName('name')[0]
+   print("Name is ",name.childNodes[0].data)
+   age = i.getElementsByTagName('age')[0]
+   print("age is",age.childNodes[0].data)
+   branch = i.getElementsByTagName('branch')[0]
+   print("branch is" ,branch.childNodes[0].data)
+
+============================================================== 
+ 
+ how to working with JSON files in python
+
+
+
+
+JSON (JavaScript Object Notation) is a lightweight data-interchange format. 
+It is easy for humans to read and write. 
+It is easy for machines to parse and generate. 
+It is based on a subset of the JavaScript Programming Language.
+in-order to work with JSON file, we are importing the json module.
+json file example:
+
+
+
+{"name": "Frank", "age": 39, "isEmployed": true}
+<name>Frank</name>
+<age>39</age>
+
+
+
+{"name": "Frank", 
+  "age": 39, 
+  "isEmployed": true}
+  
+  <name>Frank  </name>
+  <age>39</age>
+  <isEmployed>True</isEmployed>
+
+
+
+
+
+
+Reading JSON:
+
+
+
+Reading JSON means converting JSON into a Python value (object)
+
+the json library parses JSON into a dictionary or list in Python. 
+
+In order to do that, we use the loads( ) function (load from a string).
+
+
+
+import json
+
+jsonData = '{"name": "Frank", "age": 39}'
+
+jsonToPython = json.loads(jsonData)
+
+print(jsonToPython)
+
+{ 'age' : 39, 'name' : 'Frank' }
+
+
+writing json:
+
+import json
+
+pythonDictionary ={'name':'Bob','age':44,'isEmployed':True}
+
+dictionaryToJson = json.dumps(pythonDictionary)
+
+print(dictionaryToJson)
+
+
+{ "age": 44, "isEmployed": true, "name": "Bob" }
+
+
+		config/defaults.json
+
+{
+
+"region" : "eu-west-1", "instanceType": "m1.small"
+
+}
+
+import json
+
+config = json.loads(open('config/defaults.json').read( ))
+
+print(config)
+
+Writing the json file data into text file:
+--------------------------------------------------
+import json
+
+data = {}  
+data['people'] = []  
+data['people'].append({  
+    'name': 'Scott',
+    'website': 'stackabuse.com',
+    'from': 'Nebraska'
+})
+data['people'].append({  
+    'name': 'Larry',
+    'website': 'google.com',
+    'from': 'Michigan'
+})
+data['people'].append({  
+    'name': 'Tim',
+    'website': 'apple.com',
+    'from': 'Alabama'
+})
+
+with open('data.txt', 'w') as outfile:  
+
+    json.dump(data, outfile)
+
+Reading the data from text file to json:
+---------------------------------------------------
+
+import json
+
+with open('data.txt') as json_file:  
+    data = json.load(json_file)
+    for p in data['people']:
+        print('Name: ' + p['name'])
+        print('Website: ' + p['website'])
+        print('From: ' + p['from'])
+        print('')

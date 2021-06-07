@@ -1,0 +1,112 @@
+Polymorphism : 
+=================
+poly -> many
+morphos -> forms
+If something exist in various forms, it is called polymorphism.
+
+In programming, a variable,object or method will exist in various forms.
+
+A variable can store different types of data, an object may exhibit different behaviors
+in different contexts or a method may performs various tasks in python. 
+This type of behavior is called polymorphism.
+
+Python has built in polymorphism. The following topics are examples for polymorphism 
+in python.
+
+1. operator overloading
+2. Method overloading
+3. Method overriding
+
+Operator overloading: 
+---------------------
+We know that operator is symbol that performs some action. For example, '+' is an operator
+that performs addition when used on numbers. When an operator can perform different actions
+it is said to exhibit polymorphism.
+
+eg : 
+print(10+15)
+
+s1 = "hello"
+s2 = "Mr. phani"
+
+print(s1+s2)
+
+lst1 = [10,20,30]
+lst2 = [40,50,60]
+print(lst1+lst2)
+
+
+operator loading : 
+----------------------
+
+class book1:
+	def __init__(self,price):
+		self.price = price
+	def __add__(self,others):
+		return self.price+others.price
+		
+class book2:
+	def __init__(self,price):
+		self.price = price
+		
+b1 = book1(100)
+b2 = book2(150)
+print("total price is ",(b1+b2))
+
+Method overloading: 
+-------------------
+class addition:
+	def sum(self,a=None,b=None,c=None):
+		if (a!=None and b!=None and c!=None):
+			print("sum is ",a+b+c)
+		elif (a!=None and b!=None):
+			print("sum is ",a+b)
+		else:
+			print("please enter two are three arguments")
+
+m = addition()
+#m.sum(10,20,30)
+#m.sum(10,20)
+m.sum()
+
+Method overriding:
+------------------
+class square:
+	def __init__(self,side):
+		self.side = side
+	def area(self):
+		print("area of square is :",self.side * self.side)
+
+class rectangle(square):
+	
+	def __init__(self,l,b):
+		
+		self.l = l
+		self.b = b
+	def area(self):
+		print("area of rectangle is:",self.l*self.b)
+	
+
+r=rectangle(10,12)
+r.area()
+
+class book1:
+	def __init__(self,price):
+		self.price = price
+	def __gt__(self,b):
+		return self.price > b.price
+		
+
+class book2:
+	def __init__(self,price):
+		self.price = price
+		
+b1 = book1(100)
+b2 = book2(150)
+
+
+
+if (b1>b2):
+	print("b1 price is high")
+else :
+	print("b2 price is high")

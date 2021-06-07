@@ -1,0 +1,401 @@
+Regular expressions are helps to get exact required information 
+from given data.
+
+	A Regular expression is a string that contains special symbols and  characters to find
+and extract the information needed by us from the given data. A Regular expressions helps
+us to search information, match,find and split information as per our requirements. 
+	A regular expression is also called simply regex. Regular expressions are available
+not only in python but also in many languages like Java,Perl etc.
+
+	Python provide re module that stands for regular expressions. This module contains 
+methods like compile(),search(),match(),findall(),split(),sub() etc. Which are used in 
+finding the information in the available data. So, When we write a regular expression, 
+we should import re module as: 
+	import re 
+
+Regular expressions are nothing but strings containing characters and special symbols.
+A simple regular expression my look like this:
+	
+	reg = r'm\w\w'
+
+In the above line the string prefixed with 'r' to represent that it as raw string.
+
+Generally we write regular expressions as raw strings.
+
+	str = "welcome to python \n environment"
+	
+Here interpreter treated \n as new line character so the given string will be broken.
+In regular expressions when '\n' is used, it does not mean to throw the string into 
+new line. For this purpose we should take this as a 'raw' string. This is done 
+by prefixing 'r' before the string.
+
+	str = r"welcome to python \n environment"
+
+Steps to process regular expression 
+
+1. Define regular expression
+
+reg = r'm\w\w'
+
+2. Compile the regular expression using compile() method of 're' module as 
+
+reg_com = re.compile(r'm\w\w')
+
+3.  str = 'pen men hen gun bun sun'
+
+result = reg_com.search(str)
+
+  Here the result is stored in 'result' object and we display result 
+ by calling the group() method on the object as 
+ 
+ print(result.group())
+ men
+ 
+1. Write a program to identify string with 3 letters starting with 'm'
+
+import re 
+reg= r'm\w\w'
+reg_com = re.compile(reg)
+str = 'pen men hen gun bun sun'
+result = reg_com.search(str)
+print(result.group())
+
+The same program we can write it as 
+
+
+result = re.search(r'm\w\w',str)
+print(result.group())
+
+Note : if it does not find any search it will return None value.
+
+result = re.search(r'k\w\w',str)
+if result==None:
+	print("String does not found")
+else: 
+	print(result.group())
+	
+Regular expressions are used to perform below operations.
+
+1. Searching for strings
+2. Matching strings
+3. Finding all strings
+4. Splitting a string into pieces
+5. Replacing string
+
+
+searching ():
+---------
+	Returns first occurrence of matching string 
+
+import re
+str = 'pen men hen gun bun sun mug mor'
+result = re.search(r'm\w\w',str)
+print(result.group())
+
+Match() : 
+---------
+	Searches in the beginning of the string 
+
+import re
+str = 'pen men hen gun bun sun mug mor'
+result = re.match('p\w\w',str)
+print(result.group())
+
+findall(): 
+-------------
+	Return all strings which are matched regular expression
+
+import re
+str = 'pen men hen gun bun sun mug mor'
+result = re.findall('m\w\w',str)
+print(result)
+
+Split() :
+------------
+	
+import re 
+str = 'Welcome;to: "Quality" Thought'
+result = re.split(r'\W+',str)
+print(result)
+
+note : \w -> A-Z,a-z,0-9
+       \W -> Any character that is not alphanumaric
+	   +  -> one or more
+
+Replacing string : sub() : 
+------------------
+import re 
+str = "Hyderabad is the capital city of india"
+res = re.sub(r'Hyderabad','Delhi',str)
+print(res)
+
+
+Sequence of characters in regular expressions: 
+-------------------------------------------
+Sequence characters match only one letter in the string.
+Below are the list of sequence characters.
+
+
+
+\d 		: Represents any digit(0 to 9)
+\D		: Represents any non digit 
+\s 		: Represents white space
+\S 		: Represents non white space character
+\w 		: Represents any alphanumeric (A to Z,a to z,0 to 9)
+\W		: Represents non alphanumeric
+\b 		: Represent a space around words
+\A 		: Matches only at start of the string 
+\Z		: Matches only at end of string 
+
+Each of these sequence characters represents a single character matched in the string.
+For example \w indicates any one alphanumeric character. Suppose we write it as [\w]*.
+Here '*' represents 0 or more repetitions. Hence [\w]* represents 0 or more alphanumeric.
+
+1. Program to retrieve all the starting with 'a' in a given string.
+
+import re 
+str = 'an a apple a day,keeps the doctor away'
+result = re.findall(r'a[\w]*',str)
+
+for word in result:
+	print(word)
+
+an
+a
+apple
+a
+ay
+away
+
+Note : In above output we got ay which is not a word . This is part of 'away' word.
+
+We don't want like this. we want only words starting with 'a'
+
+result = re.findall(r'\ba[\w]*\b',str)
+
+1. Regular expression to retrieve all words starting with numaric digit 
+
+import re 
+str = '1st and 4th saturday are bank holidays'
+result = re.findall(r'\d[\w]*',str)
+
+for word in result:
+	print(word)
+
+2.Retrieve all words having 6 characters length.
+
+import re 
+str = 'sunday monday tuesday wednesday thursday friday saturday'
+result = re.findall(r'\b\w{6}\b',str)
+
+for word in result:
+	print(word)
+	
+3.Retrieve all words having minimum 7 characters length.
+
+import re 
+str = 'sunday monday tuesday wednesday thursday friday saturday'
+result = re.findall(r'\b\w{7,}\b',str)
+
+for word in result:
+	print(word)
+
+Note : w{7,9} ---> length with 7, 8, 9characters
+
+4. To retrieve only single digits.
+
+import re 
+str = 'sunday monday tuesday wednesday thursday friday saturday 1 2 3'
+result = re.findall(r'\b\d\b',str)
+
+print(result)
+
+Note : if there is double digits use '\b\d\d\b' like 34,45,56
+
+
+\A --> begining of the string.
+\Z --> End of the string 
+
+import re 
+str = 'sunday monday tuesday wednesday thursday friday saturday'
+result = re.findall(r's[\w]*\Z',str)
+
+print(result)
+
+
+Quantifiers in Regular expresssions:
+-----------------------------------
+
+In regular expressions, some characters represent more than one character to be 
+matched in the string. Such characters are called 'quantifiers'. For example, 
+if we write '+' it represents 1 or more repetitions of the preceding character. If we 
+write an expression as : r'\d+', this indicates that all numeric digits which occur for 
+1 or more times should be extracted. 
+
++ 	->  1 or more repetitions of the preceding regexp.
+*	->	0 or more repetitions of the preceding regexp
+? 	-> 	0 or 1 repetitions of the preceding regexp 
+{m} -> 	Exactly m occurrences
+{m,n}-> From m to n. m defaults to 0. n to infinity 
+
+1. WAP to retrieve phone number of give person 
+
+import re 
+str = 'QualityThought, phno : 1234567'
+res = re.search(r'\d+',str)
+print(res.group())
+
+To extract only name : 
+
+res = re.search(r'\D+',str)
+
+2. Python program to create a regular expression to find all 
+words starting with 'sr' and 'sa'
+
+import re
+str = 'sravan seenu samba sai sukumar simhadri srinivas sarayu'
+res = re.findall(r's[ra][\w]*',str)
+print(res)
+
+3. Write a python program to retrieve date of births from given string.
+
+import re 
+str = 'ravi 30-08-1999 krishna 23-05-2001 lakshmi 10-12-2001'
+result = re.findall(r'\d{2}-\d{2}-\d{4}',str)
+print(result)
+
+Special characters in regular expression :
+------------------------------------------
+
+\ 		--> Escape special character nature 
+. 		--> Matches any character except new line 
+^ 		--> Matches beginning of a string 
+$ 		--> Matches ending of string 
+[...]  	--> Denotes a set of possible characters.
+			eg : [5b-d] matches any character 5,b,c or d
+[^...]  --> Matches every character except the ones inside brackets.
+			eg : [^a-c6] matches any character except 'a','b','c' or'6'
+(...)   --> Matches the regular expression inside the parenthesis and 
+			result can be captured
+R | S 	--> Matches either regular expression R or Regular expression S
+
+The carat(^) symbol is useful to check if a string  is starting with a substring or not.
+
+1. Program to create regular expression to search whether a given string is starting 
+with 'We' are not?
+
+import re
+str = "welcome to python"
+res = re.search(r"^We",str)
+if res:
+	print("string is starting with 'We'")
+else:
+	print("string does not start with 'We'")
+	
+2. Python program to search word is at the end or not?
+
+import re 
+str = "modi is prime minister of india"
+res = re.search(r"india$",str)
+if res:
+	print("string ends with 'india'")
+else:
+	print("strings does not ends with 'india'")
+	
+Note : To Ignore the case
+res = re.search(r"india$",str,re.IGNORECASE)
+
+3. Python program to create regular expression to retrieve marks and names 
+	from given string
+
+import re 
+str = 'Ravi got 75% aggregate, Krishna got 67% aggregate and Kiran got 80% aggregate'
+
+aggregate = re.findall(r'\d{2}',str)
+names = re.findall(r'[A-Z][a-z]*',str)
+
+print(aggregate)
+print(names)
+
+4. Write a python program to create regular expression to retrieve the timings 
+	either am or pm
+
+import re 
+str = "The meeting may be at 8am or 9am or 4pm or 5pm"
+res = re.findall(r'\dam | \dpm',str)
+print(res)
+
+Regular expressions on files:
+-----------------------------
+Regular expessions can be used not only on individual strings, but also on files where 
+huge data is available. As we know, a file contains a lot of strings. We can open teh file 
+and conduct searching or matching etc. Operations on the strings of the file using 
+regular expressions. 
+	f = open('filename','r')   --> To open the file 
+
+Here data of the file is referenced by file object 'f'. We can read line by line 
+from the file object using a for loop as:
+
+	for line in f:
+		res = re.findall(regularexpression,line)
+	
+Here the regular expression is act on each line of file and result is will be added 
+to res object. 
+Note : findall returns list of elements so res will be list only.
+
+employee_details.txt
+---------------------
+101	Phani	Hyderabad	M	28	30000	qtpython01@gmail.com
+102 Raju	Vijayawada	M	30	40000	Raju@gmail.com
+103 Krishna	Guntur		M	31	50000	krishna@gmail.com
+
+1. Write a program to extract mail ids
+
+import re 
+f = open('employee_details.txt','r')
+res = []
+for line in f:
+	res = res + (re.findall(r'\b\w+@\w+.\w+\b',line))
+	#res = res + re.findall(r'\S+@\S+',line)
+print(res)
+f.close()
+
+2. Write a program to replace gmail with yahoo.
+import re 
+f = open('employee_details.txt','r')
+res = []
+for line in f:
+	line1=re.sub(r'gmail','yahoo',line)
+	print(line1)
+f.close()
+
+Retrieving information from a HTML file 
+======================================
+
+<! menu.html>
+<html>
+	<table border=2>
+	<tr align = "center"><td>1</td><td>IDLY</td><td>20.00</td></tr>
+	<tr align = "center"><td>2</td><td>DOSA</td><td>30.00</td></tr>
+	<tr align = "center"><td>3</td><td>PURI</td><td>40.00</td></tr>
+	<tr align = "center"><td>4</td><td>UPMA</td><td>30.00</td></tr>
+	<tr align = "center"><td>5</td><td>VADA</td><td>50.00</td></tr>
+	
+	</table>
+</html>
+
+import re 
+import urllib.request
+
+f = urllib.request.urlopen(r'file:///C|Users\lenovo\Desktop\menu.html')
+
+							
+text = f.read()
+
+#to convert byte string to normal string
+str = text.decode()
+print(str)
+result = re.findall(r'<td>\w+</td><td>(\w+)</td><td>(\d\d.\d\d)</td>',str)
+
+for item,price in result:
+	print('ITEM = %s       PRICE=%s'%(item,price))-

@@ -1,0 +1,316 @@
+	As human beings, we commit several errors. A software developer is also a human being
+and hence prone to commit errors either in the design of software or in writing code.
+The errors in the software are called 'bugs' and process of removing them is called 
+'debugging'. 
+
+Types of errors : 
+----------------
+1. Compile-time errors 
+2. Runtime errors 
+3. Logical errors
+
+Compile-Time Errors : 
+====================
+There are syntactical errors found in the code, due to which a program fails to compile.
+1. Forgetting : for statements like if,while,for,def,class will result in compile-time 
+error. Such errors are detected by python compiler and line number along with error 
+description is displayed by the python compiler. 
+
+x = 10
+if (x == 10)
+	print( equal)
+else 
+	print("not equal")
+	
+2. Python statements are written in blocks using proper indentation. The default number of
+spaces used for indentation is 4. All the statements belonging to the same block should
+use same number of spaces before them. If there is any deviation in spaces, then we 
+can see indentationError raised by compiler.
+
+if (x == 10):
+print( equal)
+else :
+print("not equal")
+
+Runtime errors : 
+=================
+	When PVM can not execute the byte code, then it is runtime error. 
+For example, insufficient memory to store something or inability of the PVM to execute
+some statement come under runtime errors. Runtime errors are not detected by the 
+python compiler. They are detected by the PVM, only at runtime. 
+
+eg: 
+def concat(a,b):
+	print(a+b)
+concat('Hai',25)
+
+In Python, compiler will not check the data types. Type checking is done by PVM during 
+runtime.
+
+
+Below one is example of runtime error(Index error)
+
+flowers = ['rose','Lilly','jasmine']
+print(flowers[4])
+
+Logical errors : 
+-------------
+	These errors depict flaws in the logic of the program. The programmer might be using 
+a wrong formula or the designing of the program itself is wrong. Logical errors are not
+detected either by Python compiler or PVM. The programmers solely responsible for them.
+
+In the below program, the programmer wants to calculate incremented salary of an employee,
+but he gets wrong output, since he uses wrong formula. 
+
+def increment(sal):
+	sal = sal * 25/100
+	return sal 
+sal = increment(5000.00)
+print("incremented salary",sal)
+
+Here sal logic should be sal = sal + sal * 25/100
+
+By comparing the output of a program with manually calculated results, a programmer can 
+guess the presence of a logical error. 
+
+compile time and logical errors can be eliminated by programmer by modifying the program
+source code. In case of runtime errors, when the programmer knows which type of 
+error occurs, he has to handle them using exception handling mechanism.  
+
+The run time errors which can be handled by the programmer are called 'Exceptions'.
+
+1. Program to understand the exception.
+
+f = open("samplefile","w")
+
+a,b = [ int(x)for x in input("enter two number").split()]
+c = a/b 
+f.write("writing %d in to samplefile" %c)
+f.close()
+print("file closed")
+
+
+output : 
+--------
+enter two number10 2
+file closed
+
+enter two number10 0
+Traceback (most recent call last):
+  File "exception_Demo.py", line 4, in <module>
+    c = a/b
+ZeroDivisionError: division by zero
+
+	Since a/b represent 10/0 that gives infinity which is a huge quantity 
+can not be stored in any variable. We are getting ZeroDivisionError. 
+When this error occurred, PVM is simply displaying the error message and 
+immediately terminating the program. Due to this abnormal termination, the 
+subsequent statements in the program are not executed. Hence f.close() is 
+not executed and file which is opened in the beginning of the program is not closed. 
+This leads to loss of entire data that is already  present in file. A file that is 
+opened in any mode should be closed properly. 
+
+So When there is an error in a program , due to its sudden termination, the following
+things can be suspected. 
+
+1. The important data in the files or databases used in the program may be lost. 
+2. The software may be corrupted. 
+3. The program abruptly terminates giving error message to the user making the user 
+	losing trust in the software.
+
+Hence, it is duty of the programmer to handle the errors. We can not handle all errors. 
+We can handle only some types of errors which are called exceptions .
+
+Exceptions : 
+==============
+	An exception is runtime error which can be handled by the programmer. That means if 
+the programmer can guess an error in the program an he can do something to eliminate the 
+harm caused by that error, then it is called an 'exception'. If the programmer can not 
+do anything in case of an error, then it is called an 'error' and not an exception.
+
+
+Exceptions handling : 
+====================
+	The purpose of handling errors is to make the program robust. The word robust 
+means 'strong'. A robust program does not terminate in the middle. Also, when there is 
+an an error in the program, It will display an appropriate message to the user and 
+continue execution. Designing such programs is need in any software development. For this
+purpose, the programmer should handle the errors. When the errors can be handled, they
+are called exceptions.
+
+To handle exceptions, the programmer should perform below 3 steps. 
+
+step 1:
+======= 
+	The programmer should observe the statements in his program where there may be 
+a possibility of exception. Such statements should be written inside a 'try' block.
+
+try : 
+	statements 
+
+Even if some exceptions arises inside it, the program will not terminated. When PVM 
+understands that there is an except, it jumps into an 'except' block.
+
+step 2 :  
+=========
+	except block should display exception details to the user. This helps the user to 
+understand that there is some error in the program. The programmer should also display a 
+message regarding what can be done to avoid this error. 
+	
+except exceptionname:
+	statements 
+
+step 3 : 
+=========
+	Lastly, the programmer should perform clean up actions like closing file and 
+terminating any other processes which are running. The programmer should write this 
+code in the finally block.
+	finally : 
+		statements
+The specialty of finally block is that the statements inside the finally block are 
+executed irrespective of whether there is exception or not.
+
+Performing above 3 tasks is called 'exception handling'. Remember, in exception handling
+the programmer is not preventing the exception, as in many cases it is not possible.
+But the programmer is avoiding any damage that may happen to data and software.
+
+
+Python program to handle exception : 
+-------------------------------------
+
+try :
+	f = open("samplefile","w")
+
+	a,b = [ int(x)for x in input("enter two number").split()]
+	c = a/b 
+	f.write("writing %d in to samplefile" %c)
+
+except ZeroDivisionError:
+	print("Division by zero happend")
+	print("please don't enter 0 in input")
+
+finally:
+	f.close()
+	print("file closed")
+	
+
+Complete try --  except --- finally
+
+try: 
+	statements 
+except Exception1:
+	handler1
+except Exception2 : 
+	handler2
+else:
+	statments
+finally :
+	statements
+
+1. A single try block can be followed by several except blocks.
+2. Multiple except blocks can be used to handle multiple exceptions.
+3. We can not write try block with out any except blocks.
+4. We can write try block with out any except blocks.
+5. Else block and finally blocks are not compulsory.
+6. When there is no exception, else block is executed after try block.
+7. Finally block is always executed.
+
+Types of exceptions : 
+=====================
+
+Two types of exceptions 
+1. Built in exceptions
+2. User defined exceptions
+
+* Python program to handle syntax error given by eval() function.
+
+try : 
+	values = eval(input("enter numbers"))
+except SyntaxError:
+	print("Invalid values entered")
+else : 
+	print("values are you entered",values)
+
+output : 
+-------
+C:\Users\lenovo\Desktop>python exception_try.py
+enter numbers
+10,23,34
+values are you entered (10, 23, 34)
+
+C:\Users\lenovo\Desktop>python exception_try.py
+enter numbers
+10,34b,34
+Invalid values entered	
+	
+	
+	
+* Python program to handle IOError produced by open() function.
+
+try : 
+	name = input('Enter filename')
+	f = open(name,'r')
+	
+except IOError:
+	print(name,"file not found")
+else : 
+	n = len(f.readlines())
+	print(name,'has',n,'lines')
+	f.close()
+
+User-defined Exceptions : 
+========================
+	
+	Like built in exceptions of python, the programmer can also create his own
+exceptions which are called 'user-defined exceptions' or 'Custom Exceptions'
+
+The exceptions are raise in many contexts. For example, when a divided by zero, the 
+ZeroDivisionError is raised. Similarly when datatype is not correct, TypeError is raised.
+
+But, there may be some situations where none of the exceptions in python are useful for 
+the programmer in that case, The programmer has to create his own exception and raise it. 
+
+Steps to create user defined functions
+
+1. Since all exceptions are classes, the programmer is suppose to create his own exceptions
+as class. Also he should make his class as a subclass to the in-built 'Exception' class. 
+
+class MyException(Exception):
+	def __init__(self,arg):
+		self.msg =  arg 
+	
+MyException is a subclass of Exception. This class has a constructor where a variable
+'msg' is receives a message passed from outside through 'arg'.
+
+
+2. The programmer can write his code, maybe it represents a group of statements or a 
+function. when the programmer suspects the possibility of exception. He should raise his
+own exception using 'raise' statement as 
+
+raise MyException('message')
+
+3. The programmer can insert the code inside a 'try' block and catch the exception using
+'except' block as 
+	try :
+		code
+	except MyException as me:
+		print(me)
+
+* Python program for user defined function.
+
+class MyException(Exception):
+	def __init__(self,arg):
+		self.msg = arg
+	
+def check(dict):
+	for k,v in dict.items():
+		print("name : %s  , balance : %s " %(k,v))
+		if (v < 2000):
+			raise MyException('Balance amount is less than in the account of ' + k)
+
+bank = {'phani': 4000,'Raju':3000,'lakshmi':1000}
+try :
+	check(bank)
+except MyException as me:
+	print(me)
+	

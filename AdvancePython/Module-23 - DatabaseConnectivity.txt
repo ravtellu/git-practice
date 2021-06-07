@@ -1,0 +1,146 @@
+Python Program to connect to Database:
+--------------------------------------
+
+https://download.microsoft.com/download/E/2/1/E21644B5-2DF2-47C2-91BD-63C560427900/NDP452-KB2901907-x86-x64-AllOS-ENU.exe
+https://cdn.mysql.com//Downloads/MySQLInstaller/mysql-installer-community-5.7.21.0.msi
+
+pip install mysql-connector
+
+MYSQL Statements : 
+================
+mysql> create database python_connectivity;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> show databases;
++---------------------+
+| Database            |
++---------------------+
+| information_schema  |
+| mysql               |
+| performance_schema  |
+| python              |
+| python_connectivity |
+| sys                 |
++---------------------+
+6 rows in set (0.00 sec)
+
+mysql> use python_connectivity;
+Database changed
+mysql>
+mysql> create table emp_details(empno int,empname char(200),salary int);
+Query OK, 0 rows affected (0.29 sec)
+
+mysql> insert into emp_details values(101,'RAVI',50000);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from emp_details;
++-------+---------+--------+
+| empno | empname | salary |
++-------+---------+--------+
+|   101 | RAVI    |  50000 |
++-------+---------+--------+
+1 row in set (0.00 sec)
+
+mysql> insert into emp_details values(102,'RAJU',60000);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from emp_details;
++-------+---------+--------+
+| empno | empname | salary |
++-------+---------+--------+
+|   101 | RAVI    |  50000 |
+|   102 | RAJU    |  60000 |
++-------+---------+--------+
+2 rows in set (0.00 sec)
+
+mysql>
+
+
+	
+1. WAP to connect to mysql database and check the connectivity.
+
+
+import mysql.connector ;
+
+conn = mysql.connector.connect(host='localhost',database='python_connectivity',user='root',password='hadoop')
+
+
+if conn.is_connected():
+	print("connected to mysql database")
+	
+cursor = conn.cursor()
+cursor.close()
+conn.close()
+
+2. WAP to connect to mysql database and fetch all the rows.
+
+import mysql.connector
+
+conn = mysql.connector.connect(host='localhost',database='python_connectivity',user='root',password='hadoop')
+
+if conn.is_connected():
+	print("connected to mysql database")
+	
+cursor = conn.cursor()
+
+cursor.execute("select * from emp_details")
+
+row = cursor.fetchall()
+	  
+print("total number of rows = ",cursor.rowcount)
+print(row)
+
+
+for i in row:
+	empno = int(i[0])
+	empname = i[1]
+	sal = i[2]
+	print("%d   %s		%d"%(empno,empname,sal))
+	#print(empno,empname,sal)
+		
+	
+	
+cursor.close()
+conn.close()
+
+
+3. To insert row in to database 
+
+	
+cursor.execute("insert into emp_details values (104,'RAMANA',80000)")
+conn.commit()	
+
+
+4. WAP to insert several rows into table from the keyboard.
+
+import mysql.connector ;
+
+def insert_rows(empno,empname,salary):
+
+
+	conn = mysql.connector.connect(host='localhost',database='python_connectivity',user='root',password='hadoop')
+
+	if conn.is_connected():
+		print("connected to mysql database")
+	
+	cursor = conn.cursor()
+
+	str = "insert into emp_details(empno,empname,salary) values ('%d','%s','%d')" % (empno,empname,salary)
+	try: 
+	
+		cursor.execute(str)
+		conn.commit()
+		print("1 row inserted")
+	except: 
+		conn.rollback()
+	finally:
+		cursor.close()
+		conn.close()
+	
+n = int(input("How many rows?"))
+
+for i in range(n):
+	x = int(input("Enter empno\n"))
+	y = input("Enter empname\n")
+	z = int(input("Enter salary\n"))
+	insert_rows(x,y,z)

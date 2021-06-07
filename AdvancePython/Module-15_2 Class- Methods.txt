@@ -1,0 +1,169 @@
+
+Types of variables: 
+====================
+1. Instance variables
+2. Class variables or static variables -
+
+
+Instance variables are the variables whose separate copy is created in every instance(or object)
+-------------------
+In below example when we modify the copy of 'marks' in any instance it will not modify others 
+
+
+class Student:
+	
+	def __init__(self):
+		self.marks = 20
+		
+	
+	def modify(self):
+		self.marks += 10 
+		
+		
+
+s1 = Student()
+s2 = Student()
+print("marks in s1",s1.marks)
+print("marks in s2",s2.marks)
+s1.modify()
+print("marks in s1",s1.marks)
+print("marks in s2",s2.marks)
+
+output : 
+-------
+marks in s1 20
+marks in s2 20
+marks in s1 30
+marks in s2 20
+
+To access instance variables , we need instance methods with 'self' as first parameter.
+
+
+class variables or static variables: 
+---------------------------
+Unlike instance variables , class variables are the variables whose single copy is available to all the 
+instances of the class. If we modify the copy of class variable in an instance, it will modify all other copies of 
+the instance. 
+
+In the below program ,The class variable marks is defined in the class and initialized with value 10.
+A method by name 'modify' used to modify the value of 'x'. This method is called 'class method' since it is acting 
+on the class variable. To mark this method as class method , we should use built in decorator statement @classmethod.
+
+
+class Student:
+	
+	
+	marks = 10
+	
+	@classmethod
+	def modify(cls):
+		cls.marks += 10
+		
+
+s1 = Student()
+s2 = Student()
+print("marks in s1",s1.marks)
+print("marks in s2",s2.marks)
+s1.modify()
+print("marks in s1",s1.marks)
+print("marks in s2",s2.marks)
+
+marks in s1 10
+marks in s2 10
+marks in s1 20
+marks in s2 20
+
+
+
+Types of methods:
+----------------
+	The purpose of method is to process variables provided in the class or in the method.
+The variables declared in the class are class variables(static variables) and the 
+variables declared in the constructor are called instance variables. We can classify
+methods in the following 3 types.
+
+1. Instance Methods.
+	a) Access Methods. --> getXXX() --> can not modify data
+	b) Mutator Methods. ---> SetXXX() --> can modify data
+2. Class Methods
+3. Static Methods.
+
+Instance Methods:
+---------------
+Instance methods are the methods which act upon instance variables of class.
+
+class student:
+	`
+	def setName(self,Name):
+		self.Name = Name
+	def getName(self):
+		return self.Name
+	def details(self):
+		print("name is ",self.Name)
+	
+s1 = student()
+name = 'srinivas'
+marks = 100
+s1.setName(name) 
+print("name is",s1.getName())
+
+
+Class methods:
+-------------
+The methods are class level which act on class variables or static variables.
+These methods are written using @classmethod decorator.
+By default first parameter is 'cls' which refers to class it self.
+cls.var --> variable
+cls.method --> method name
+
+	marks = 10
+	name = 'krishna'
+
+	@classmethod
+	def modify(k):
+		k.marks += 10
+		k.name = 'ravi'
+		
+
+s1 = Student()
+s2 = Student()
+print("marks in s1",s1.marks)
+print("marks in s2",s2.marks)
+s1.modify()
+print("marks in s1",s1.marks)
+print("marks in s2",s2.marks)
+
+
+print(s1.name)
+print(s2.name)
+
+
+Static Methods:
+==============
+We need static methods when the processing at class level but we need not  
+involve class or instances. Static methods are used when some processing is related
+to the class but does not need the classes or instances to perform any work.
+For example, Setting environment variables, counting the number of instances of the class 
+or changing an attribute in another class etc. are the tasks related to a class. Such 
+tasks are handled by static methods. Static methods are written with a decorator 
+@staticmethod above them. Static methods are called in the form of classname.method().
+
+
+class Myclass:
+	#this is class var or static var 
+	n = 0
+	
+	#constructor that increments n when an instance is  created.
+	
+	def __init__(self):
+		Myclass.n = Myclass.n + 1
+		
+	@staticmethod 
+	def noObjects():
+		print(' No.of instances created:',Myclass.n)
+
+#create 3 instances 
+obj1 = Myclass()
+obj2 = Myclass()
+obj3 = Myclass()
+Myclass.noObjects()

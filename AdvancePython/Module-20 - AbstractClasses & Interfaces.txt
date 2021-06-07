@@ -1,0 +1,245 @@
+	A class is a model for creating objects(or instances). A class contains 
+variables(attributes),Methods(actions).Anything written in class is applicable to all of
+its objects. If a method written in class, it is available to all its class objects.
+If we create 3 objects for particular class, then all 3 objects get copy of that 
+class methods.
+
+class Myclass:
+	def calculate(self,x):
+		print("square is ",x*x)
+		
+obj1 = Myclass()
+obj1.calculate(2)
+
+obj2 = Myclass()
+obj2.calculate(3)
+
+obj3 = Myclass()
+obj3.calculate(4)
+
+	
+If all objects requirement  is same i.e calculating square, then it is fine.
+
+But some times the requirement of objects will be different and entirely dependent on 
+the specific object only.For example in previous example first objects wants to 
+calculate square and second wants square root and third wants cube value.
+In such cases how to write calculate() in Myclass ?
+
+Since, the calculate() method has to perform 3 different tasks depending on the  object, 
+we can not write the code to calculate square value in the body of calculate method. 
+On the other hand, if we write 3 different methods like calculate_square(),calculate_sqrt() and 
+calculate_cube() in Myclass, then all 3 methods are available to all 3 objects which is 
+not advisable. when each object wants one method,providing all the 3 does not look 
+reasonable. To serve each object with the one and only required method, 
+we can follow the steps.
+
+1. First, lets write calculate() in Myclass. This means every object wants to 
+   calculate something. 
+2. If we write body for calculate() method , it is commonly available to all the objects. 
+  So let's not write body for calculate() method. Such a method 
+  is called abstract method. Since we write abstract method in Myclass , 
+  it is called abstract class. 
+
+3. Now derive a sub class Sub1 from Myclass, so that the calculate() method is available 
+  to the sub class. Provide body for calculate method in sub1 such that it caluclates 
+  square value. Similarly, we create another subclass sub2 where we write the caluclate()
+  method with body to calculate square root value.We create the third class calculate() 
+  to calculate cube value. 
+
+4. It is possible to create objects for the sub classes. Using these objects, the 
+   respective methods can be called and used. Thus , every object will have
+   it requirement fulfilled.
+ 
+
+Abstract method and class : 
+========================
+
+An abstract method is a method whose action is redefined in the subclasses as per the 
+requirement of the objects. Generally abstract methods are written without body since 
+their body will be defined in the subclasses anyhow. But it is possible to write an 
+abstract method with body also. To mark a method as abstract, we should use the 
+decorator @abstractmethod. On the other hand , a concrete method is method with body. 
+
+An abstract class is a class that generally contains some abstract methods. Since abstract class contains abstract methods whose implementation(or body)
+is later defined in the subclasses, it is not possible to estimate the total memory 
+required to create the object for the abstract class. So PVM can not create objects 
+to an abstract class. 
+
+Once abstract class is written , we should create sub classes and all the abstract 
+methods should be implemented(body should be written) in the subclases. 
+Then, it is possible to create objects to the sub classes. 
+
+The way to create an abstract class is to derive it from a meta class ABC 
+that belongs to abc(abstract base class) module as : 
+
+class Abstractclass(ABC)
+
+
+
+
+from abc import ABC,abstractmethod
+import math
+
+class Myclass(ABC):
+
+	@abstractmethod
+	def calculate(self,x):
+				pass  
+
+class Sub1(Myclass):
+	def calculate(self,x):
+		print('square value is ',x*x)
+
+class Sub2(Myclass):
+	def calculate(self,x):
+		print('square root=',math.sqrt(x))
+
+class Sub3(Myclass):
+	def calculate(self,x):
+		print('cube value=',x**3)
+
+obj1 = Sub1()
+obj1.calculate(10)
+
+
+obj2 = Sub2()
+obj2.calculate(100)
+
+obj3 = Sub3()
+obj3.calculate(10)
+
+
+===================================
+
+car ==> Maruthi,Santro
+			m 	  s
+
+Regisration Number --> Common for all objects
+Fuel tank -->  openTank and fill fuel. which is common for all
+				so openTank() concrete method. 
+
+Steering -->  maruthi - manual steering
+			  santro  - power steering 
+Breaks  ---> 
+			  maruthi - Hydraulic breaks 
+			  santro  - Gas breaks
+	
+1. Program to write Car abstract class. abstractdemo.py
+
+
+abstractdemo.py
+==================
+
+from abc import * 
+class Car(ABC):
+	def __init__(self,regno):
+		self.regno = regno
+	
+	def openTank(self):
+		print('Fill the fuel into the tank ')
+		print('for all car with regno', self,regno)
+
+	@abstractmethod 
+	def steering(self):
+		pass 
+		
+	@abstractmethod
+	def braking(self):
+		pass
+		
+		
+2. Program for maruthi sub class
+
+maruthi.py 
+==========
+
+from abstractdemo import Car
+
+class Maruthi(Car):
+
+	def steering(self):
+		print("maruthi uses manual steering")
+		
+	def braking(self):
+		print("maruthi uses hydraulic brakes")
+		print("apply breaks and stop it")
+	
+m = Maruthi(1990)
+m.openTank()
+m.steering()
+m.braking()
+
+3. Program for santro sub class
+
+Santro.py
+========
+
+from abstractdemo import Car
+
+class Santro(Car):
+	
+		def steering(self):
+			print(" Santro uses power steeting")
+			print(" Drive the car")
+			
+		def braking(self):
+			print("Santro uses gas breaks")
+			print(" Apply breaks and stop it")
+			
+s = Santro(8494)
+s.openTank()
+s.steering()
+s.braking()
+
+
+Interfaces: 
+============
+
+	Abstract class is a class which contains some abstract methods as well as
+concrete methods. If the class contains only abstract methods and there are no
+concrete methods then it becomes interface. It means interface is an abstract class 
+contains only abstract methods. In java an interface is created using keyword 'interface'
+but in python an interface is created  as an abstract class only. The interface 
+concept is not explicitly available in python. 
+
+
+from abc import *
+class Myclass(ABC):
+	@abstractmethod
+	def connect(self):
+		pass 
+	@abstractmethod
+	def disconnect(self):
+		pass 
+		
+class Oracle(Myclass):
+	def connect(self):
+		print("connecting to oracle database")
+	def disconnect(self):
+		print("Disconnected from oracle database")
+class Mysql(Myclass):
+	def connect(self):
+		print("connecting to mysql database")
+	def disconnect(self):
+		print("Disconnected from mysql database")
+
+class Database: 
+	
+	str = input("Enter database name")
+	
+	classname = globals()[str]
+	
+	
+	x=classname()
+	
+	x.connect()
+	x.disconnect()
+	
+
+globals(): 
+--------
+	In the main program , the programmer is supposed to create objects to the 
+sub classes without knowing their names. This is done using globals() function.
+
+The globals() function returns a dictionary containing current global names and 
+globals()[str] returns the name of the class that is in 'str'

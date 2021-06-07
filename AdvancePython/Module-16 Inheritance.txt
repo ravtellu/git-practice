@@ -1,0 +1,376 @@
+	When a programmer develops a class, he will use its features by
+creating an instance to it. When another programmer wants to create another class
+which is similar to the class already created, then he need not create class from 
+scratch. He can simply use the features of existing class.
+
+1. Python program to create Teacher class and store it into teacher.py module
+
+#This teacher class save this file to teacher.py file.
+
+Teacher.py
+------------
+class teacher:
+	def setid(self,id):
+		self.id = id
+	def getid(self):
+		return self.id
+	def setname(self,name):
+		self.name = name
+	def getname(self):
+		return self.name
+	def setsalary(self,sal):
+		self.sal = sal
+	def getsalary(self):
+		return self.sal
+		
+teacher_details.py:
+--------------------	
+from Teacher import teacher
+
+c = teacher()
+c.setid(101)
+c.setname('phani')
+c.setsalary(20000)
+
+print("teacher details")
+print("Teacher id is :" ,c.getid())
+print("Teacher name is :" ,c.getname())
+print("Teacher salary is :" ,c.getsalary())
+
+student.py:
+-----------
+class student:
+	def setid(self,id):
+		self.id = id
+	def getid(self):
+		return self.id
+	def setname(self,name):
+		self.name = name
+	def getname(self):
+		return self.name
+	def setmarks(self,marks):
+		self.marks=marks
+	def getmarks(self):
+		return self.marks
+		
+student_details.py:
+--------------------
+
+from Student import student
+
+s = student()
+s.setid(1001)
+s.setname('PAVAN')
+s.setmarks(98)
+
+print("student id is:",s.getid())
+print("student name is ",s.getname())
+print("studennt marks is",s.getmarks())
+
+
+
+If we compare Teacher class and student classes, we can understand that 
+75% of the code is same in both the classes.That means most of the code being
+planned by the second programmer in his student class is already available in the 
+Teacher class. So here instead of creating new class altogether,he can re use which is
+already available.
+
+
+from Teacher import teacher
+
+class student(teacher):
+	def setmarks(self,marks):
+		self.marks = marks
+	def getmarks(self):
+		return self.marks
+s = student()
+s.setid(1001)
+s.setname('PAVAN')
+s.setmarks(98)
+
+print("student id is:",s.getid())
+print("student name is ",s.getname())
+print("studennt marks is",s.getmarks())
+
+Here Student class created from Teacher class. This is called inheritance.
+original class --> teacher class --> superclass
+newly created class ---> subclass
+
+
+
+Constructors in inheritance:
+------------------------
+
+class Father:
+	def __init__(self):
+		self.property = 500000.00
+	def display_property(self):
+		print("Father property =:"self.property)
+class son(Father):
+	pass
+
+s = son()
+s.display_property()
+
+Overriding super class constructors and methods:
+-----------------------------------------------
+
+class Father:
+	def __init__(self):
+		self.property = 500000.00
+	def display_property(self):
+		print("Father property =:",self.property)
+class son(Father):
+	def __init__(self):
+		self.property = 200000.00
+	def display(self):
+		print("son property =:",self.property)
+
+s = son()
+s.display()
+
+Here sub class constructor is replacing super class constructor.
+This is called constructor overriding. 
+
+The super() Method:
+-------------------
+
+super() is a built in method which is useful to call the super class
+constructor or methods from subclass. Any constructor written in the 
+super class is not available to the subclass if the subclass has a constructor.
+
+Then how can we initialize the super class instance variables and use them in subclass?
+this is done by calling super class constructor using super() method from inside the 
+subclass constructor. 
+
+super().__init__()
+super().__init__()(arguments)
+super().method()
+
+Program : 
+---------
+Python program to call super class constructor in the subclass using super():
+
+class Father:
+	def __init__(self,property=0):
+		self.property = property
+	def display_property(self):
+		print("father property is=",self.property)
+		
+class son(Father):
+	def __init__(self,property1=0,property=0):
+		super().__init__(property)
+		self.property1 = property1
+	
+	def display_property(self):
+		print("property1 =%d,property = %d"%(self.property1,self.property))
+		print("the total property of child = ",self.property1 + self.property)
+
+s = son(20000.00,80000.00)
+s.display_property()
+
+output:
+---------
+property1 =20000,property = 80000
+the total property of child =  100000.0
+
+* Python program to access base class constructor and method in subclass using super()
+
+
+class square:
+	def __init__(self,side):
+		self.side = side
+	def area(self):
+		print("area of square is :",self.side * self.side)
+
+class rectangle(square):
+	
+	def __init__(self,side,l,b):
+		super().__init__(side)
+		self.l = l
+		self.b = b
+	def area(self):
+		super().area()
+		print("area of rectangle is:",self.l*self.b)
+	
+
+r=rectangle(10,12,15)
+
+r.area()
+
+
+Types of Inheritance : 
+----------------------
+
+1. Single Inheritance
+2. Multiple Inheritance
+
+Single Inheritance:
+-------------------
+Deriving one or more subclasses from single base class is called 'Single heritance'.
+eg : Bank---> canarabank,Statebank
+Here Bank is super class and canarabank and statebank are subclasses.
+
+All the members of bank class will be available to the sub classes. 
+
+In the bank class, we have some 'cash' variable and a method to display that as:
+
+class Bank(object):
+	cash = 10000000
+	@classmethod
+	def available_cash(cls):
+		print(cls.cash)
+	
+class canarabank(Bank):
+	pass 
+class statebank(Bank):
+	cash = 20000000
+	
+	def available_cash(cls):
+		print(cls.cash+Bank.cash)
+		
+c = canarabank()
+c.available_cash()
+s = statebank()
+s.available_cash()
+	
+output:
+----------
+10000000
+30000000
+
+
+Multiple Inheritance:
+-----------------------
+
+Deriving sub classes from multiple(or more than one) base classes is called
+multiple inheritance. 
+
+class subclass(baseclass1,baseclass12..)
+
+best exampel: mother,fater ---> child
+
+A python program to implement multiple Inheritance
+
+1. 
+class Father:
+	def height(self):
+		print("height is 6")	 
+class Mother : 
+	def color(self):
+		print("color is white")
+class child(Father,Mother):
+	pass
+c = child()
+print("\n child inherited qualities:")
+c.height()
+c.color()
+	
+	
+
+
+Problems in multiple inheritance:
+
+1. Order constructor initialization will be C--> A--> B. 
+Here C does not inherited both class initializations.
+
+class A:
+	def __init__(self):
+		print("This is A class")
+class B:
+	def __init__(self):
+		print("This is B class")
+class C(A,B):
+	def __init__(self):
+		print("This is C class")
+		super().__init__()
+	
+c = C()
+
+output : 
+---------
+This is C class
+This is A class
+
+
+
+2. To call all initialize methods then we have to user super().__init__() 
+	method in all classes.
+	
+class A:
+	def __init__(self):
+		print("This is A class")
+		super().__init__()
+class B:
+	def __init__(self):
+		print("This is B class")
+		super().__init__()
+class C(A,B):
+	def __init__(self):
+		print("This is C class")
+		super().__init__()
+	
+c = C()
+
+output: 
+------
+This is C class
+This is A class
+This is B class
+
+		
+Method of Resolution order:
+-----------------------------
+
+In multiple inheritance scenario, any specified attribute or method is
+searched first in the current class. If not found, the search continues into parent
+classes in depth-first, left to right fashion without the same class twice. Searching
+in this way is called Method Resolution Order(MRO). There are 3 principles followed by
+
+1. The first principle is to search for subclass before going to for its base class. 
+	Thus if B is  inherited from A, it will search B first and then goes to A.
+2. The second principle is that when a class is inheritance from several classes, it 
+	searches in the order from left to right in the base classes. For example, if class C
+	is inherited from A and B as class(A,B) then first it will search in A and then in B.
+3. The third principle is it will not any class more than once. That means a class 
+	in the inheritance hierarchy is traversed only once exactly.
+	
+class A:
+	def method(self):
+		print("This is A class")
+		super().method()
+class B:
+	def method(self):
+		print("This is B class")
+		super().method()
+class C:
+	def method(self):
+		print("This is C class")
+		
+class X(A,B):
+	def method(self):
+		print("This is X class")
+		super().method()
+class Y(B,C):
+	def method(self):
+		print("This is Y class")
+		super().method()
+	
+class P(X,Y,C):
+	def method(self):
+		print("P class Method") 
+		super().method()
+
+
+p = P()
+p.method()
+
+P class Method
+This is X class
+This is A class
+This is Y class
+This is B class
+This is C class
+
+
+	

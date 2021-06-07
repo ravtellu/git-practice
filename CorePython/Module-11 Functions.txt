@@ -1,0 +1,353 @@
+Function: 
+==========
+ A function is similar to a program that consists of a group of statements that are
+ intended to perform a specific task. The main purpose of a function is to perform
+ a specific task or work. Thus when there are several tasks to be performed, the
+ programmer will write several functions.
+ 
+ Built in functions : print(),sqrt(),power()
+ User defined functions: Programmer can create their own functions.
+ 
+ 
+Advantage of functions : 
+===================
+1. Once function is written, it can be reused as and when required. So functions are 
+also called reusable code. Because of re usability , the programmer can avoid code
+redundancy. It means it is possible to avoid writing the same code again and again.
+
+2. Code maintenance will become easy because of functions. When a new feature has to be
+added to the existing software, a new function can be written and integrated to software.
+
+3.  When there is error in the software, the corresponding function can be modified
+with out disturbing the other functions in the software. 
+
+4. The use of functions in a program will reduce the length of the program.
+
+
+Difference between function and method:
+=====================================
+
+function : group of statements
+method 	 : function inside a class.
+
+So, please remember that a function and a method are same except their placement and
+the way they are called.
+
+
+Defining a function:
+===================
+
+We can define a function using keyword def followed by function name after the function name
+, we should write parentheses() which may contain parameters. Consider the syntax of function
+as follows.
+
+def functionname(param1,param2...):
+"""function docstring """
+	function statements
+
+example : 
+	def sum(a,b):
+		""" this function finds sum of two number"""
+		c = a + b
+		print(c)
+		
+def --> function specified
+sum --> function name
+a,b --> function parameters
+
+After parentheses, we put a colon(:) represents the begining of the function body.
+
+Function body contains group of statements called as 'suite'.
+we should write string in first line of function body called it as 'docstring'
+
+'docstrings' are optional.
+
+1. Write a function that accepts two values and find their sum and return results
+
+def sum(a,b):
+	""" this function find sum of two numbers"""
+	c = a+b
+	return c
+
+x = sum(10,15)
+y = sum(20,30)
+
+2. Write a program to test whether a number is even or odd?
+
+def even_odd(num):
+ """ even number or odd number"""
+	if(num % 2 ==0):
+		print(num, "is even")
+	else: 
+	
+		print(num, " is odd")
+even_odd(12)
+even_odd(13)
+
+3. Write a program to calculate factorial of values.
+
+
+def fact(n):
+	""" to find factorial value """
+	prod = 1
+	while(n > 1):
+		prod = prod * n
+		n = n -1 
+	return prod
+for i in range(1,11):
+	print("factorial of {} is {}".format(i,fact(i))
+	
+
+Returning multiple values from a function : 
+===========================================
+
+
+def sum_sub(a,b):
+   c = a+b
+   d = a-b
+   return c,d
+
+i,j = sum_sub(10,20)                    
+
+print("the sum is %d and sub is %d"%(i,j))
+
+
+1. Python program assign function to a variable
+
+def display(str):
+	return 'Hai' + str
+
+message = display("Srinivas")
+print(message)
+
+2. Python program to define function inside other 
+
+def display(str):
+	def message():
+		return 'How are u?'
+	result = message() + str
+	return result
+
+print(display("srinivas"))
+
+Pass by object reference : 
+=======================
+
+1. pass by value or call by value
+>>pass by value represents that a copy of the variable value is passed
+to the function and any modifications to that value will not reflect outside the function.
+
+2. pass by reference or call by reference
+>> Sending the reference or memory address of the variable to function. The variable value is
+modified by the function through memory address and hence value will reflect outside the function also.
+
+
+
+1. A python program to pass an integer to function and modify it.
+
+
+def modify(x):
+	x = 15
+	print(x,id(x))
+x = 10
+modify(x)
+print(x,id(x))
+
+output: c\> python fun.python
+15 1617805096
+10 1617805016
+
+2 A python program to pass a list to a function and modify it.
+
+def modify(lst):
+	lst.append(50)
+	print(lst,id(lst))
+
+# call modify() and pass lst
+
+lst = [10,20,30,40]
+modify(lst)
+print(lst,id(lst))
+
+C:\Users\lenovo\Desktop>python function_ex.py
+[10, 20, 30, 40, 50] 38086936
+[10, 20, 30, 40, 50] 38086936
+
+
+
+Formal and actual arguments :
+=======================
+
+def sum(a,b):          # a,b are formal arguments
+	c = a+b
+	print(c)
+x = 10
+y = 15
+sum(x,y)     # x,y are actual arguments
+
+
+Local and Global variables : 
+=========================
+
+Local : When we declare a variable inside a function, it becomes a local variable.
+		local variable scope is limited only to that function where it is created.
+		That means the local variable value is available only in that function 
+		and not outside of the function.
+Global: When a variable is declared above a function , it becomes global variable.
+		Such variables are available to all the functions which are written after it.
+	
+	
+a=1  # this is global variable
+def myfunction():
+	b =2   # this is local variable
+	a=10
+	print('a = ',a)
+	print('b = ',b)
+	
+myfunction()
+print(a)      #available 
+print(b)      # Error,not available
+
+a1
+b
+
+Recursive functions: 
+===================
+
+A function that calls itself is known as 'recursive function'.
+
+1. Python program to calculate factorial of give number
+
+def fact(n):
+	if n == 0:
+		res = 1
+	else: 
+		res = n * fact(n-1)
+	return res
+
+	
+	i = 4
+	print('factorial of {} is {}'.format(i,fact(i)))
+	
+
+Anonymous function or Lambadas
+==============================
+
+
+A function without a name is called 'anonymous function'. So far, the functions we wrote were
+defined using the keyword 'def'. But anonymous functions are not defined using  'def'. They are
+defined using the keyword 'lambda' and hence they are also called 'Lambada functions'
+
+def square(x):
+	return x*x
+	
+square(5)
+
+
+The same function can be written as 
+lambda x : x * x
+
+1. Python program that create a lambda function that return a square value of a given number
+
+f = lambda x : x * x 
+
+value = f(5)
+print('square of 5 = ',value)
+
+
+
+Lambda function contain only one expression and they return the result implicitly.
+Hence we should not write any return statement in lambda functions. 
+Here is lambda function that calculates sum of two numbers.
+
+2. Python function calculate sum of two numbers.
+
+f = lambda x,y : x+y
+
+res = f(10,20)
+print("sum is ", res)
+
+lambdas with filter() function : 
+--------------------------------
+
+The filter() is useful to filter out the elements of sequnce depending  on the
+result of a function. We should supply a sequnce to filter function as:
+
+filter(function,sequnce)
+
+
+1. A Python program using filter() to filter out even numbers from a list
+
+def is_even(n):
+	if n%2 == 0:
+		return True
+	else: 
+		return false
+lst = [12,21,24,31,56]
+
+lst1 = list(filter(is_even,lst))
+print(lst1)
+
+c:\> python fun.py
+[12,24,56]
+
+2. lambda function that returns even numbers
+
+lst = [12,21,24,31,56]
+
+lst1 = list(filter(lambda x: (x%2==0),lst))
+print(lst1)
+
+
+	
+
+lambdas with map() function : 
+--------------------------------
+The map() function is similar to filter() function.but it acts on each element of the
+sequence and perhaps changes the elements. The format of map() function is: 
+
+map(functoin,sequnce)
+
+The 'function' performs a specified operation on all the elements of the sequnce and the
+modified elements are returned which can be stored in another sequnce. 
+
+
+1. Python to find square of each element of sequnce
+
+def squares(x):
+	return x*X
+lst = [1,2,3,4]
+lst1 = list(map(squares,lst))
+print(lst1)
+
+
+f = lambda x : x*x
+
+
+lst = [1,2,3,4]
+for i in lst:
+	print(f(i))
+	
+lst1 = list(map(lambda x: x*x , lst))
+print(lst1)
+
+
+
+Using lambdas with reduce() function:
+------------------------------------
+The reduce() function reduces a sequence of elements to a single value by
+processing the elements according to a function supplied. The reduces function uses in the format:
+
+reduce(function,sequence)
+
+For example, we write the reduce() function with a lambda expression, as: 
+
+
+from functools import reduce
+
+lst = [1,2,3,4,5]  # list of numbers
+reduce(lambda x,y : x*y, lst)
+
+sum = reduce(lambda a,b : a +b, range(1,51))
+print(sum)
+

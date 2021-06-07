@@ -1,0 +1,1132 @@
+User interact with software or application using 2 ways. 
+CUI --> character user interface (eg:command line)
+GUI --> Graphic user interface (eg:print icon)
+
+GUI in Python : 
+===============
+Python offers tkinter module to create graphics programs. The tkinter represents
+'toolkit interface' for GUI. This is an interface for python programmers that enable 
+them to use the classes of TK module of TCL/TK language. The TCL(Tool command language) 
+is a powerful dynamic programming language, suitable for web and desktop applications,
+networking,administration,testing and many more.
+TCL language uses TK(Tool kit) language to generate graphics. TK provides standard 
+GUI not only for TCL but also for many other dynamic programming languages like python.
+Hence TK is used by python programmers in developing GUI applications through python 
+tkinter module.
+
+1. Program to create root window or top window
+
+from tkinter import *
+
+root = Tk()
+
+root.mainloop()
+
+2. Program to create root window with options.
+
+from tkinter import *
+
+root = Tk()
+
+root.title("my page")
+root.geometry("400x600")
+
+root.mainloop()
+
+Working with containers:
+=======================
+
+A container is a component that is used as a place where drawings or widgets can be displayed.
+In short container is space that display the output to the user. There are two important 
+containers 
+1. Canvas
+2. Frame
+
+Canvas : This is container generally used to draw shapes like lines,curves,arcs and circles
+Frame : This is container that is generally used to display widgets like buttons,
+		check buttons or menus.
+
+Canvas 
+=========
+A canvas is rectangular area which can be used for drawing pictures like lines,circles,
+polygons,arcs etc. To create a canvas, we should create an object to Canvas class as:
+
+c = Canvas(root,bg="blue",height=500,width= 600,cursor='pencil')
+
+Here root is the name of the parent window.
+bg is background color
+height and width represents canvas pixels.(Eg: 1360 * 768 screen resolutions
+1360 width and 768 height)
+
+The cursor represents the shaped of the cursor in canvas. Important cursor shapes are 
+arrow,box_spiral,center_ptr,circle,clock,coffee_mug,corss,dot,double_arrow,pencli,plus,star
+
+once the canvas is crated , it should be added to the root window. Then only it will be
+visible.This is done using pack() method, as follows.
+
+c.pack()
+
+
+mainloop(): There is a method known by the name mainloop() is used when you are ready
+for the application to run. mainloop() is an infinite loop used to run the application, 
+wait for an event to occur and process the event till the window is not closed.
+
+
+
+1. Example program for CANVAS which display line,rectangular and text.
+
+from tkinter import * 
+
+#create root window
+root = Tk()
+
+#create Canvas as a child to root window 
+c = Canvas(root,bg = "blue",height=700,width=1200,cursor = 'pencil')
+
+# create a line in canvas 
+id = c.create_line(50,50,200,50,200,150,width=4,fill="white")
+
+# create rectangular in the canvas 
+id = c.create_rectangle(500,200,700,600,width=2,fill= "gray",outline="black",activefill="yellow")
+
+# create some text in the canvas 
+fnt = ('Times',40,'bold italic underline')
+
+id = c.create_text(500,100,text= "QualityThought",font = fnt,fill="yellow",activefill="green")
+
+#add canvas to root window 
+c.pack()
+
+#wait for events
+root.mainloop()
+
+Frame: 
+=====
+A frame is similar to canvas that represents a rectangular area where some text or widgets
+can be displayed. Our root window is in fact a frame. To create a frame , we can 
+create an object of Frame class as: 
+
+f = Frame(root,height=400,width = 500,bg= "yellow",cursor="cross")
+
+Here,'f' is the object of Frameclass. The frame is created as child of 'root' window.
+The options height and width represents the height and width of the frame in pixels.
+'bg' represents the background color to be displayed and 'cursor' indicates the type
+of the cursor to be displayed in frame.
+
+Once the frame is created, it should be added to root window using pack() method
+as follows.
+
+f.pack()
+
+
+1. A GUI program to display a frame in the root window.
+-
+from tkinter import * 
+
+root = Tk()
+
+root.title("Frame example")
+
+#create a frame as chiled to root window.
+
+f = Frame(root,height=400,width=500,bg="yellow",cursor="cross")
+
+#attache frame to root window 
+f.pack()
+
+#let the root window wait for the events.
+root.mainloop()
+
+Widgets:
+=========
+
+A widget is GUI component that is displayed on the screen and can perform a task
+as desired by the user. We create widgets as objects. For example, a push button is 
+widget that is nothing but an object of Button class. 
+Similarly label is widget that is an object of Label class. Once a widget is created, 
+it should be canvas or frame. The following are widgets in python:
+
+1. Button 
+2. Label
+3. Message 
+4. Text 
+5. Scrollbar
+6. Checkbutton
+7. Radiobutton
+8. Entry
+9. Spinbox
+10.Listbox
+11.Menu
+
+In general , working with widgets takes the following four steps.
+
+1. 
+Create the widgets that are needed in the program. A widget is GUI component that is 
+represented as an object of a class.  For example push button is widges that is 
+represented as Button class object. 
+
+As an example, suppose we want to create a push button, we can create an object to 
+Button class as : 
+b = Button(f,text='MyButton')
+
+Here 'f' is frame object to which the button is added. 'MyButton' is the text that is 
+displayed on the button.
+
+2. When the user interact with a widget, he will generate an event. For example 
+clicking on a push button is an event. Such events should be handled by writing 
+functions or routines. These functions are called in reponse to the events. Hence 
+they are called 'callback handler' or event handlers. 
+
+As an example , let's write a function that may be called in response to button click.
+
+def buttonclick(self):
+	print('you have clicked me')
+
+3. When the user clicks on the push button, that 'clicking' event should be linked with 
+'callback handler'. Then only the button widget will appear as if it is performing some 
+task.
+
+As an example lets bind the button click with function as : 
+b.bind('<Button-1',buttonclick)
+
+Here 'b' represents push button, <Button-1> indicates left mouse button when the user 
+presses the left mouse button, the 'buttonclick' function is called as these are 
+linked by bind() method in the preceding logic.
+
+4. The preceeding 3 steps make the widgets ready for the user. Now the user has to
+interact with widgets. This is done by entering text from keyboard or pressing mouse 
+button. These are called events. These events continuously monitored by our program 
+with the help of a loop, called 'event loop'.
+
+As an example , we can use the mainloop() method that waits and processes the events 
+as : root. mainloop()
+
+Here root is the object of root window in python GUI. The events in root window are 
+continuously observed by the mainloop() method. It means clicking the mouse or pressing 
+a button on the keyboard are accepted by mainloop() and the mainloop() calls the 
+corresponding event handler function.
+
+Button widget: 
+=============
+
+from tkinter import * 
+
+def buttonclick(self):
+	print("you have clicked me")
+
+root = Tk()
+
+# create a fram and child to root window 
+f = Frame(root,height=200,width= 300)
+
+# let the frame not shrink
+f.propagate(0)
+
+# attach the frame to root window 
+f.pack()
+
+#create a push button as child to frame 
+b = Button(f,text='My Button',width=15,height=2,bg='yellow',fg='blue',
+		activebackground='green', activeforeground='white')
+
+#attach button to the frame 
+b.pack()
+
+# bind the left mouse button with the method to be called 
+b.bind("<Button-1>",buttonclick)
+
+# the root window handles the mouse click event
+root.mainloop()
+
+Here instead of specify bind method we can use command option to link push button 
+to event handler.
+
+b = Button(f,text='My Button',width=15,height=2,bg='yellow',fg='blue',
+		activebackground='green', activeforeground='white',command=buttonclick)
+
+2. Write a program to create three push buttons and change the background of the 
+frame according to the button clicked by the user.
+
+
+from tkinter import * 
+
+class MyButton : 
+
+	def __init__(self,root):
+		self.f = Frame(root,height=400,width= 500)
+		self.f.propagate(0)
+		self.f.pack()
+	
+		self.b1 = Button(self.f,text='Red',width=15,height=2,command=lambda:self.buttonclick(1))
+		self.b2 = Button(self.f,text='green',width=15,height=2,command=lambda:self.buttonclick(2))
+		self.b3 = Button(self.f,text='blue',width=15,height=2,command=lambda:self.buttonclick(3))
+		
+		self.b1.pack()
+		self.b2.pack()
+		self.b3.pack()
+	
+	def buttonclick(self,num):
+		if num ==1:
+			self.f["bg"] = 'red'
+		if num ==2:
+			self.f["bg"]='green'
+		if num ==3 :
+			self.f["bg"] = 'blue'
+root = Tk()
+mb = MyButton(root)
+root.mainloop()
+	
+Arranging widgets in frame : 
+==========================
+Arranging widgets in the frame is called 'Layout management'. There are 3 types of
+layout managers.
+1. Pack layout manager 
+2. Grid layout manager 
+3. Place layout manager 
+
+Pack layout manager : 
+---------------------
+This layout manager uses pack() method. This method is useful to associate a widget 
+with its parent component. While using pack()method we can mention the position of 
+widget using 'fill' or 'side' options 
+
+b.pack(fill=X)
+b.pack(fill=Y)
+
+The 'fill' option can take the values : X,Y,BOTH,NONE. 
+
+X - occupy frame horizontally
+Y - occupy frame vertically
+BOTH - Widget should occupy both directions 
+NONE - Widget should display as it is.
+
+The default is NONE. Along with 'fill' option , we can take 'padx' and 'pady' options 
+that represent how much space should be left around the component horizontally and 
+vertically. 
+
+b1.pack(fill = Y,padx = 100,pady=100)
+b2.pack(fill = X,padx = 10,pady = 15)
+b3.pack(fill = X) 
+
+
+b1.pack(side = LEFT,padx = 10,pady=10)
+b2.pack(side = LEFT,padx = 10,pady = 15)
+b3.pack(side = RIGHT)
+b4.pack()
+
+Grid Layout Manager : 
+--------------------
+Uses grid() method to arrange the widgets in a 2D table that contains rows and columns.
+
+b1.grid(row=0,column=0,padx=10,pady=15)
+#display 0th row ,0th column spaces around		
+
+b2.grid(row=0,column=1,padx=10,pady=15)
+#display 0th row ,1st column spaces around		
+b3.grid(row=0,column=2,padx=10,pady=15)
+b4.grid(row=1,column=3,padx=10,pady=15)
+
+Place layout manager : 
+----------------------
+Uses place() to arrange the widgets. The place() method takes x and y cordinates of 
+the widgets along with width and height of the window where are widgets are placed.
+
+
+b1.place(x=20,y=150,width =100,height =50)
+# display as (20,30) 
+#coordinates in the window 100 px widht and 50 px height
+
+
+b2.place(x=20,y=100,width =100,height =50)
+
+b3.place(x=200,y=100,width =100,height =50)
+b4.place(x=200,y=200,width =100,height =50)
+
+Program to cover all layouts
+
+
+from tkinter import * 
+
+class MyButton : 
+
+	def __init__(self,root):
+		self.f = Frame(root,height=400,width= 500)
+		self.f.propagate(0)
+		self.f.pack()
+	
+		self.b1 = Button(self.f,text='Red',width=15,height=2,command=lambda:self.buttonclick(1))
+		self.b2 = Button(self.f,text='green',width=15,height=2,command=lambda:self.buttonclick(2))
+		self.b3 = Button(self.f,text='blue',width=15,height=2,command=lambda:self.buttonclick(3))
+		self.b4 = Button(self.f,text='yellow',width=15,height=2,command=lambda:self.buttonclick(3))
+		#pack layout
+		'''
+		self.b1.pack(fill = Y,padx = 100,pady=100)
+		self.b2.pack(fill = X,padx = 10,pady = 15)
+		self.b3.pack(fill = X) 
+		'''
+		
+		'''
+		self.b1.pack(side = LEFT,padx = 10,pady=10)
+		self.b2.pack(side = LEFT,padx = 10,pady = 15)
+		self.b3.pack(side = RIGHT)
+		self.b4.pack()
+		'''
+		#grid layout
+		'''
+		self.b1.grid(row=0,column=0,padx=10,pady=15)
+        #display 0th row ,0th column spaces around		
+		
+		self.b2.grid(row=0,column=1,padx=10,pady=15)
+		#display 0th row ,1st column spaces around		
+		self.b3.grid(row=0,column=2,padx=10,pady=15)
+		self.b4.grid(row=1,column=3,padx=10,pady=15)
+		'''
+	    #place layout 
+		
+		self.b1.place(x=20,y=150,width =100,height =50)
+		# display as (20,30) 
+		#coordinates in the window 100 px widht and 50 px height
+        
+		
+		self.b2.place(x=20,y=100,width =100,height =50)
+		
+		self.b3.place(x=200,y=100,width =100,height =50)
+		self.b4.place(x=200,y=200,width =100,height =50)
+	
+	
+	def buttonclick(self,num):
+		if num ==1:
+			self.f["bg"] = 'red'
+		if num ==2:
+			self.f["bg"]='green'
+		if num ==3 :
+			self.f["bg"] = 'blue'
+root = Tk()
+mb = MyButton(root)
+root.mainloop()
+	
+	
+Label Widget : 
+-------------
+A label represents constant text that is displayed in the frame or container. 
+A label can display one or more lines of text that can not be modified.
+
+lbl = Label(f,text= "welcome to python", width = 20,height=2,font=('Courier',-30,'bold underline'),fg='blue',bg='yellow')																																																																																										
+
+
+
+from tkinter import * 
+
+class MyButton : 
+
+	def __init__(self,root):
+		self.f = Frame(root,height=400,width= 500)
+		self.f.propagate(0)
+		self.f.pack()
+	
+		self.b1 = Button(self.f,text='ClickMe',width=15,height=2,command=self.buttonclick)
+		self.b2 = Button(self.f,text='close',width=15,height=2,command=quit)
+		
+		self.b1.grid(row=0,column=1)
+		self.b2.grid(row=0,column=2)
+		
+	
+	def buttonclick(self):
+		#create a label with some text
+		self.lbl = Label(self.f,text= "welcome to python", width = 20,height=2,font=('Courier',-30,'bold underline'),fg='blue',bg='yellow')																																																																																										
+		# attache the lable in the fram 
+		self.lbl.grid(row=2,column=0)
+			
+root = Tk()
+mb = MyButton(root)
+root.mainloop()
+
+Message Widget:
+--------------
+A message is similar to label. But messages are generally used to display multiple lines 
+of text where as a label is used to display a single line of text. All teh text in 
+message will be displayed using the same font.
+
+m = message(f,text='Thanks for attending corepython and advance python sessions',width=200,font=('Roman',20,'bold Italic'),fg='blue')
+
+Here width message width in pixels.
+
+
+from tkinter import * 
+
+class Mymessage : 
+
+	def __init__(self,root):
+		self.f = Frame(root,height=400,width= 500)
+		self.f.propagate(0)
+		self.f.pack()
+	
+		self.m = Message(self.f,text='Thanks for attending corepython and advance python sessions',width=200,font=('Roman',20,'bold italic'),fg='blue')	
+		self.m.pack(side=LEFT)
+		
+root = Tk()
+mb = Mymessage(root)
+root.mainloop()
+
+Text Widget:
+------------
+Text widget is same as label or message. But Text widget has several options and can
+display multiplelines of text in different colors and fonts. It is possible to insert
+text into a Text widget,modify it or delete it. We can also display images in the 
+Text widget. One can create Text widget by creating an object to Text class.
+
+t = Text(root,width = 20,height = 10,font=('verdana',14,'bold'),fg='blue',bg='yellow',wrap=WORD)
+
+width -> width of Text widget in characters 
+height -> height of the widget in lines.
+wrap -> where to cut the line
+	wrap = CHAR represents that any line that is too long will be broken at any character 
+	wrap = WORD will break line in the widget after the last word that fits in the line.
+	wrap = NONE will not wrap the lines. In this case better to provide horizontal scroll bar to view text.
+
+once text is created we can insert any text using the insert() method as :
+
+t.insert(END,'Text widget\n this is inserted into the text widget.\n second line\n')
+
+
+from tkinter import * 
+
+class Mymessage : 
+
+	def __init__(self,root):
+		self.f = Frame(root,height=400,width= 500)
+		self.f.propagate(0)
+		self.f.pack()
+		self.t = Text(root,width = 20,height = 10,font=('verdana',14,'bold'),fg='blue',bg='yellow',wrap=WORD)
+		self.t.insert(END,'Text widget\n this is inserted into the text widget.\n second line\n')
+		self.t.pack(side=LEFT)
+		
+root = Tk()
+mb = Mymessage(root)
+root.mainloop()
+
+
+	
+
+scrollbar widget:
+------------------
+
+A scorll bar is a widget that is useful to scroll the text in another widget.
+ 
+There are two types of scoll bar Horizontal and vertical.
+
+h =Scorllbar(root,orient=HORIZONTAL,bg='green',command=t.xview)
+
+bg back ground color for scroll bar may not work in windows
+command represents the method that is to be executed. The method 'xview' is executed
+on the object 't'. Here 't' represent a widget like Text Widget or List box.
+
+v =Scorllbar(root,orient=VERTICAL,bg='green',command=t.yview)
+
+After creating the scroll bar, it should be attached to the widget like Text widget or 
+listbox as 
+
+t.configure(xscrollcommand= h.set)
+
+Here 't' indicates Text widget. 'xscrollcommand' call the set() of horizontal scrollbar. 
+In the same way, we can attach vertical scroll bar as 
+
+t.configure(yscrollcommand=v.set)
+
+Finally, the scroll bar should be attached to the root window using pack() or grid()
+ as 
+ h.pack(side=BOTTOM,fill=X)
+ v.pack(side = RIGHT,fill=Y
+ 
+
+
+from tkinter import * 
+
+class Myscrollbar: 
+
+	def __init__(self,root):
+		self.t = Text(root,width = 70,height = 15,wrap=NONE)
+		for i in range(10):
+			self.t.insert(END,"welcome to python")
+		self.t.pack(side=TOP,fill=X)
+		self.h = Scrollbar(root,orient= HORIZONTAL,command = self.t.xview)
+		self.t.configure(xscrollcommand=self.h.set)
+		self.h.pack(side=BOTTOM,fill=X)
+		
+root = Tk()
+mb = Myscrollbar(root)
+root.mainloop()
+
+Checkbutton Widget:
+ -----------------
+ 
+ Check buttons, also know as check boxes are usefull for the user to select one or more 
+ options from available group of options. Check buttons are displayed in the form of 
+ square shaped boxes. When check button is selected , a tick mark is displayed on the 
+ button. we can create check buttons using the checkutton class as : 
+ 
+ c1 = Checkbutton(f,bg='yellow',fg='green',font=('Georgia',20,underline'),text='Python',variable = var1,command=display)
+
+ c1-> object of checkbutton class
+ f -> frame 
+ bg,fg --> back ground and fore ground colors of check box 
+ text -> what text to be displayed after check button.
+ The option variable represents an object of IntVar() class. 'command' represents the 
+ method to be called when the user clicks the check button.
+ 
+ The class 'IntVar' is usefull to know the state of the check button. wheter it is 
+ clicked or not. The IntVar class object can be created as : 
+ 
+ var1 = IntVar()
+ 
+ when the check button is clicked or selected , the value of 'var1' will be 1 otherwise 
+ it value will be 0. To retrieve the value from 'var1' we should use the get() method, as: 
+ 
+ x = var1.get() 
+ #x value can be 1 or 0
+ 
+ 
+ 1. Program to create 3 check buttons and know which options are selected by the user.
+ 
+ 
+from tkinter import * 
+
+class MyCheckbox:
+
+	def __init__(self,root):
+		self.f = Frame(root,width = 500,height = 350)
+		self.f.propagate(0)
+		self.f.pack()
+		# create IntVar class variables
+		self.var1 = IntVar()
+		self.var2 = IntVar()
+		self.var3 = IntVar()
+		
+		self.c1 = Checkbutton(self.f,bg='yellow',fg='blue',font=('Georgia',20,'underline'),text='Python',variable = self.var1,command=self.display)
+		self.c2 = Checkbutton(self.f,bg='yellow',fg='blue',font=('Georgia',20,'underline'),text='JAVA',variable = self.var2,command=self.display)
+		self.c3 = Checkbutton(self.f,bg='yellow',fg='blue',font=('Geoargia',20,'underline'),text='.NET',variable = self.var3,command=self.display)
+		
+		self.c1.place(x=50,y=100)
+		self.c2.place(x=200,y=100)
+		self.c3.place(x=350,y=100)
+	def display(self):
+		# retrive the control variable values.
+		x = self.var1.get()
+		y = self.var2.get()
+		z = self.var3.get()
+		
+		str=''
+		
+		if x==1:
+			str+='Python'
+		if y==1:
+			str+='JAVA'
+		if z==1:
+			str+='.NET'
+			
+		# display user selection as label.
+		
+		lbl = Label(text=str, fg='blue').place(x=50,y=150,width=200,height=20)
+		
+root = Tk()
+mb = MyCheckbox(root)
+root.mainloop()
+
+ 
+ Radiobutton widget: 
+ ==================
+ 
+ A radio button is similar  to check button, but it is useful to select only one option 
+ from a group of available options. A radio button is displayed in the form of round 
+ shaped button. The user cannot select more than one option in case of radio buttons.
+ When a radion button is selected, there appears a dot in the radio button. We can 
+ create radio button as an object of the Radiobutton class as : 
+ 
+ r1 = Radiobutton(f,bg='yello',fg='green',font=('Georgia',20,'underline'),text='Male',variable=var,value=1,command=display)
+ 
+ The option 'text' represents the string to be displayed after the radio button. 
+ 'variable' represents the object of IntVar class. 'value' represents a value that is set 
+ to this object when the radio button is clicked. The object of IntVar class can be 
+ created as:
+ 
+ var = IntVar()
+ 
+ When the user clicks the radion button, the value of this 'var' is set to the value 
+ given in 'value' option. i.e It means 'var' will become 1 if the radio button 'r1' is 
+ clicked by the user. In this way, it is possible to know which button is clicked by the user.
+ 
+ 1. Writhe a python program to create radio buttons and know which button is selected by user.
+ 
+ 
+from tkinter import * 
+
+class Myradio:
+
+	def __init__(self,root):
+		self.f = Frame(root,width = 500,height = 350)
+		self.f.propagate(0)
+		self.f.pack()
+		# create IntVar class variables
+		self.var = IntVar()
+		
+		
+		
+		
+		self.r1 = Radiobutton(self.f,bg='yellow',fg='blue',font=('Georgia',20,'underline'),text='male',variable = self.var,value=1,command=self.display)
+		self.r2 = Radiobutton(self.f,bg='yellow',fg='blue',font=('Georgia',20,'underline'),text='female',variable = self.var,value=2,command=self.display)
+		
+		
+		self.r1.place(x=50,y=100)
+		self.r2.place(x=200,y=100)
+		
+	def display(self):
+		# retrive the control variable values.
+		x = self.var.get()
+		
+		str=''
+		
+		if x==1:
+			str+='You selected: Male'
+		if x==2:
+			str+='you selected : Female'
+		
+		# display user selection as label.
+		
+		lbl = Label(text=str, fg='blue').place(x=50,y=150,width=200,height=20)
+		
+root = Tk()
+mb = Myradio(root)
+root.mainloop()
+
+
+EntryWidget:
+============
+
+Entrywidget is useful to create a rectangular box that can be used to enteror display
+one line of text. For example we can display names,passwords or credit card numbers using 
+Entry widgets. An Entry widget can be created as an object of Entry class sa:
+
+e1 = Entry(f,width=25,fg='blue',bg='yellow',font=('Arial',14),show='*')
+
+e1 -> entry class object 
+f -> frame 
+width -> size of the widget in number of characters 
+fg -> indicates foreground color  in which text in widget is displayed. 
+bg -> represents background 
+'show' represents a character that replaces the originally typed characters in Entry widget.
+
+After typing text in the Entry widget, the user presses the Enter button. Such an event 
+should be linked with the Entry widget using bind() method as : 
+
+e1.bind("<Return>",self.display)
+
+When the user presses enter (or return)button, the event is passed to display() method.
+
+Hence , we are supposed to catch the event in the display method, using the following 
+statement:
+	def display(self,event)
+As seen in teh preceding code, we are catching the event though an argument 'event' in 
+the display method. This argument is never used inside the method. The method consists 
+of the code that is to be executed when the user pressed enter button.
+
+
+ 
+from tkinter import * 
+
+class MYEntry:
+
+	def __init__(self,root):
+		self.f = Frame(root,width = 500,height = 350)
+		self.f.propagate(0)
+		self.f.pack()
+		
+		#labels 
+		self.l1 = Label(text='Enter user name : ')
+		self.l2 = Label(text = 'Enter password:')
+		
+		#create entry widget for username 
+		
+		self.e1 = Entry(self.f,width=25,fg='blue',bg='yellow',font=('Arial',14))
+		self.e2 = Entry(self.f,width=25,fg = 'blue',bg='yellow',show='*')
+		
+		# when user press Enter ,bind that event to display method.
+		
+		self.e2.bind("<Return>",self.display)
+		
+		#place labels and entry widgets in the frame.
+		
+		self.l1.place(x=50,y=100)
+		self.l2.place(x=50,y=150)
+		self.e1.place(x=200,y=100)
+		self.e2.place(x=200,y=150)
+
+
+	def display(self,event ):
+		# retrive the values from entry widget
+		str1 = self.e1.get()
+		str2 = self.e2.get()
+		print("name is%s and password is %s"%(str1,str2))
+		#lbl = Label(text='your name is :'+str1).place(x=50,y=200)
+		#lb2 = Label(text='your password is:'+str2).place(x=50,y=220)
+		
+root = Tk()
+mb = MYEntry(root)
+root.mainloop()
+
+Spinbox widget : 
+=============
+
+A spinbox widget allow the user to select values from a given set of values.
+The values may be range of numbers or a fixed set of strings.
+
+The spin box appears as long rectangle attached with arrowheads pointing towards
+up and down. The user can click on the arrowheads to see the next value or previous
+value. The user can also edit the value being displayed in the spin box just like 
+he can do incase of and Entry widget. 
+
+A spin box is created as an object of Spinbox class. To create a spin box with 
+numbers ranging from 5 to 15. We can write the following statement. 
+
+s1 = Spinbox(f,from_=5, to = 15, textvariable=val1,width=15,fb = 'blue',bg='yellow',font = ('Arial',14,'bold'))
+
+f -> represent parent widget 
+from_ -> starting 
+to -> ending value in spinbox 
+'textvariable' show the control variable, i.e val1 that is created as an object of the 
+IntVar class as follows.
+
+val1 = IntVar()
+
+'val1' is a control variable that receives the displayed value in the spinbox. Similarly
+, we can create spin box with strings by specifying the strings as tuple as shown in 
+the following statement.
+
+s2 = Spinbox(f,values = ('Hyderabad','Delhi','Kolkata','Bangalore'),textvariable = val2,width=15,fb = 'blue',bg='yellow',font = ('Arial',14,'bold'))
+
+
+The 'textvariable' option indicates the control variable value 'val2' that is created 
+as an object of String class as shown in the following statement.
+
+val2 = StringVar()
+
+
+ 
+from tkinter import * 
+
+class MySpinBox:
+
+	def __init__(self,root):
+		self.f = Frame(root,width = 500,height = 350)
+		self.f.propagate(0)
+		self.f.pack()
+		
+		self.val1 = IntVar()
+		self.val2 = StringVar()
+		
+		
+		
+		self.s1 = Spinbox(self.f,from_=5, to = 15, textvariable=self.val1,width=15,fg = 'blue',bg='yellow',font = ('Arial',14,'bold'))
+		self.s2 = Spinbox(self.f,values = ('Hyderabad','Delhi','Kolkata','Bangalore'),textvariable = self.val2,width=15,fg = 'blue',bg='yellow',font = ('Arial',14,'bold'))
+		#create entry widget for username 
+		
+		self.b = Button(self.f,text='Get the values from spin boxes',command=self.display)
+		
+		
+		self.s1.place(x=50,y=50)
+		self.s2.place(x=50,y=100)
+		self.b.place(x=50,y=150)
+
+
+	def display(self):
+		# retrive the values from entry widget
+		a = self.val1.get()
+		s = self.val2.get()
+		print("name is%s and password is %s"%(a,s))
+		lbl = Label(text='select value is :'+str(a)).place(x=50,y=200)
+		lb2 = Label(text='select city is is:'+s).place(x=50,y=220)
+		
+root = Tk()
+mb = MySpinBox(root)
+root.mainloop()
+
+GUI progrma to design calulator 
+
+import sys
+from tkinter import *
+def btnClearDisplay( ):
+    global operator
+    operator=" "
+    input_num.set(" ")
+
+def btnClick(numbers):
+    global operator
+    operator=operator +str(numbers)
+    input_num.set(operator)
+
+def btnEqual( ):
+    global operator
+    sumup=str(eval(operator))
+    input_num.set(sumup)
+    operator=" "
+  
+root=Tk( )
+frame=Frame(root)
+frame.pack()
+root.title('calculater')
+operator=" "
+input_num=StringVar()
+frame1=Frame(root)
+frame1.pack(side=TOP)
+txtDisplay=Entry(frame1,textvariable=input_num,bd=20,insertwidth=1,font=30)
+txtDisplay.pack(side=TOP)
+button1=Button(frame1,padx=16,pady=16,bd=8,text="1",fg="black",command=lambda:btnClick(1))
+button1.pack(side=LEFT)
+button2=Button(frame1,padx=16,pady=16,bd=8,text="2",fg="black",command=lambda:btnClick(2))
+button2.pack(side=LEFT)
+button3=Button(frame1,padx=16,pady=16,bd=8,text="3",fg="black",command=lambda:btnClick(3))
+button3.pack(side=LEFT)
+button4=Button(frame1,padx=16,pady=16,bd=8,text="4",fg="black",command=lambda:btnClick(4))
+button4.pack(side=LEFT)
+
+frame2=Frame(root)
+frame2.pack(side=TOP)
+
+button1=Button(frame2,padx=16,pady=16,bd=8,text="5",fg="black",command=lambda:btnClick(5))
+button1.pack(side=LEFT)
+button2=Button(frame2,padx=16,pady=16,bd=8,text="6",fg="black",command=lambda:btnClick(6))
+button2.pack(side=LEFT)
+button3=Button(frame2,padx=16,pady=16,bd=8,text="7",fg="black",command=lambda:btnClick(7))
+button3.pack(side=LEFT)
+button4=Button(frame2,padx=16,pady=16,bd=8,text="8",fg="black",command=lambda:btnClick(8))
+button4.pack(side=LEFT)
+
+frame3=Frame(root)
+frame3.pack(side=TOP)
+
+button1=Button(frame3,padx=16,pady=16,bd=8,text="9",fg="black",command=lambda:btnClick(9))
+button1.pack(side=LEFT)
+button2=Button(frame3,padx=16,pady=16,bd=8,text="0",fg="black",command=lambda:btnClick(0))
+button2.pack(side=LEFT)
+button3=Button(frame3,padx=16,pady=16,bd=8,text="c",fg="black",command=btnClearDisplay)
+button3.pack(side=LEFT)
+button4=Button(frame3,padx=16,pady=16,bd=8,text="=",fg="black",command=btnEqual)
+button4.pack(side=LEFT)
+
+frame4=Frame(root)
+frame4.pack(side=TOP)
+
+button1=Button(frame4,padx=16,pady=16,bd=8,text="*",fg="black",command=lambda:btnClick("*"))
+button1.pack(side=LEFT)
+button2=Button(frame4,padx=16,pady=16,bd=8,text="/",fg="black",command=lambda:btnClick("/"))
+button2.pack(side=LEFT)
+button3=Button(frame4,padx=16,pady=16,bd=8,text="-",fg="black",command=lambda:btnClick("-"))
+button3.pack(side=LEFT)
+button4=Button(frame4,padx=16,pady=16,bd=8,text="+",fg="black",command=lambda:btnClick("+"))
+button4.pack(side=LEFT)
+
+
+root.mainloop( )
+
+Listbox Widget:
+============
+
+A list box is useful to display a list of items in a box so that the user can select 
+1 or more items. To create a list box, we have to create an object of Listbox class , as 
+
+lb = Listbox(f,font='Arial,12 bold',fg='blue',bg='yellow',height = 8,width=24,activestyle='underline',selectionmode=MULTIPLE)
+
+lb --> object 
+height --> no.of lines in listbox 
+width --> width of list box in terms of number of characters and the default is 20.
+activestyle --> indicates the appearance of selected item. It may be 'underline','dotbox' or 'none'
+				The default value is underline.
+The option select mode may take following values.
+
+BROWSE : Normally , we can select one item (or line) out of a list box. if we click on 
+an item and then drag to a different item, the selection will follow the mouse. This 
+is the default value of select mode. 
+
+SINGLE : This represents that we can select only one item(or line) from all available 
+list of items.
+
+MULTIPLE : We can select 1 or more number of items at once by clicking on the items.
+If an item is already selected,clicking second time on the item will un-select it. 
+
+EXTENDED : We can select any adjacent group of items at once by clicking on the 
+first item and dragging to last item.
+
+Once the list is created, we should use insert items into the list box byusing insert()
+method as:
+	lb.insert(0, 'stanford university')
+	lb.insert(1, 'oxford university')
+To bind the listbox select event with a method, we can use the bind() method as : 
+	lb.bind('<<ListBoxSelect>>',on_select)
+
+
+from tkinter import * 
+
+class ListboxDemo:
+
+	def __init__(self,root):
+		self.f = Frame(root,width = 500,height = 350)
+		self.f.propagate(0)
+		self.f.pack()
+		
+		
+		self.lb1 = Label(self.f,text="click one or more of the universites below:",font = "Calbri 14")
+		self.lb1.place(x=50,y=50)
+		
+		self.lb = Listbox(self.f,font = "Arial 12 bold",fg='blue',bg='yellow',height=8,selectmode=EXTENDED)
+		self.lb.place(x=50,y=100)
+		
+		for i in ["standford university","oxford university","Texax university","Cambridge University"]:
+			self.lb.insert(END,i)
+		
+		self.lb.bind('<<ListboxSelect>>',self.on_select)
+		
+		#create text box to display selected items 
+		
+		self.t = Text(self.f, width =40,height =6,wrap=WORD)
+		self.t.place(x=300,y=100)
+	
+	def on_select(self,event):
+		#create an empty list box 
+		
+		self.lst = []
+		
+		indexes = self.lb.curselection()
+		
+		#retrieve the items names depending on indexes 
+		#append the items names to the list box 
+		
+		for i in indexes:
+			self.lst.append(self.lb.get(i))
+			
+		#delete the previous content of text box 
+		
+		self.t.delete(0.0,END)
+		
+		#insert new content in to the text box 
+		
+		self.t.insert(0.0,self.lst)
+	
+			
+		
+	
+	
+root = Tk()
+
+root.title("List box demonstration")
+obj = ListboxDemo(root)
+root.mainloop()
+
+
+
+Menu Widget : 
+=============
+
+A menu represents a group of items or options for the user to select from. For example 
+when we click on 'File' menu. It will display new,open,save etc.We can select any
+option depending on our requirements. 'New','open','save' these options are called 
+menu items.
+
+To create menu, we should use the following steps.
+
+1. First of all, we should create a menu bar as a child to root window.
+	menubar = Menu(root)
+	
+2. This menu bar should be attached to the root window using config() method as : 
+
+	root.config(menu=menubar)
+	
+3. The next step is create a menu with a group of menu items. For this purpose, first of 
+all we should create Menu class object as : 
+
+	filemenu = menu(root,tearoff=0)
+	
+Here, 'filemenu' is the Menu class object. The option 'tearoff' can be 0 or 1. When this 
+option is 1, the menu can be torn off. In this case teh first position(position 0) in t he menu
+items is occupied by the tear-off element is a dashed line. If this option value is 0, then 
+this dashed line will not appear and the menu items are displayed starting from 0th position
+onwards.
+
+The next stemp is to add menu itesm to the filemenu object using the add_command() method as 
+
+filement.add_command(lable="New",command = donothing)
+
+Here, the menu item name is 'New' adn when it is clicked by the user, the method 
+donothing() will be called. In this way , we can add any number of menu items to file menu 
+object. When we want to display a horizontalline that separates a group of menu items 
+from another group of menu items, we can use the add_separator() method, as given in 
+the following statement. 
+
+filemenu.add_separator()
+
+After addign all menu items to filemenu object. we should give it a name and add it to 
+menu bar using add_cascade() method as : 
+
+menubar.add_cascade(label="File",menu=filemenu)
+
+The menu option tells that the 'File' menu is composed of all menu items that are added
+already to file menu object. 
+
+1. Program : Python program to create a menu bar and addign file and edit menus with some 
+menu items. 
+
+
+from tkinter import * 
+
+class Mymenudemo:
+
+	def __init__(self,root):
+		# create a menubar 
+		self.menubar = Menu(root)
+		
+		# attache menu bar to root window
+		
+		root.config(menu=self.menubar)
+		
+		#create a filemenu 
+		
+		self.filemenu = Menu(root,tearoff=0)
+		
+		#create menu items 
+		self.filemenu.add_command(label = "New",command = self.donothing)
+		self.filemenu.add_command(label = "Open",command = self.donothing)
+		self.filemenu.add_command(label = "save",command = self.donothing)
+		
+		# add a horizontal line as a separator 
+		
+		self.filemenu.add_separator()
+		
+		#create another menu item below the separator 
+		
+		self.filemenu.add_command(label="Exit", command = root.destroy)
+		
+		# add the  filemenu  with a name 'File' to the menubar 
+		
+		self.menubar.add_cascade(label="File",menu=self.filemenu)
+		
+		#create edit menu 
+		
+		self.editmenu = Menu(root,tearoff=0)
+		
+		#create menu items 
+		self.editmenu.add_command(label = "cut",command = self.donothing)
+		self.editmenu.add_command(label = "copy",command = self.donothing)
+		self.editmenu.add_command(label = "paste",command = self.donothing)
+		
+		#add the edit menu with a name 'Edit' to the menubar 
+		self.menubar.add_cascade(label="Edit",menu=self.editmenu)
+		
+	def donothing(self):
+		pass 
+	
+root = Tk()
+
+root.title("A menu Example")
+obj = Mymenudemo(root)
+
+root.geometry('600x350')
+root.mainloop()
+
